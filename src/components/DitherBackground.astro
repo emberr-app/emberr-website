@@ -15,6 +15,7 @@ const { strongAtTop = false } = Astro.props;
 	const quietIntensity = 0.35;
 	const dotSizeInCssPixels = 1.25;
 	const maximumPixelRatio = 2;
+	const ignoredHeightChangeShare = 0.25;
 	const idleMotionSpeed = 0.35;
 	const springStiffness = 0.012;
 	const springDamping = 0.9;
@@ -43,7 +44,6 @@ const { strongAtTop = false } = Astro.props;
 		uniform float scrollSag;
 		uniform float rippleStrength;
 		uniform float intensity;
-		uniform float dotSize;
 		uniform vec3 colorStart;
 		uniform vec3 colorMiddle;
 		uniform vec3 colorEnd;
@@ -99,8 +99,8 @@ const { strongAtTop = false } = Astro.props;
 		}
 
 		void main() {
-			vec2 cell = floor(gl_FragCoord.xy / dotSize);
-			vec2 screen = cell * dotSize / resolution;
+			vec2 cell = floor(gl_FragCoord.xy);
+			vec2 screen = cell / resolution;
 			float fromTop = 1.0 - screen.y;
 			float aspectRatio = resolution.x / resolution.y;
 			float stageAspectRatio = max(aspectRatio, 1.6);
@@ -183,7 +183,6 @@ const { strongAtTop = false } = Astro.props;
 		const scrollSagLocation = gl.getUniformLocation(program, 'scrollSag');
 		const rippleStrengthLocation = gl.getUniformLocation(program, 'rippleStrength');
 		const intensityLocation = gl.getUniformLocation(program, 'intensity');
-		const dotSizeLocation = gl.getUniformLocation(program, 'dotSize');
 		const colorStartLocation = gl.getUniformLocation(program, 'colorStart');
 		const colorMiddleLocation = gl.getUniformLocation(program, 'colorMiddle');
 		const colorEndLocation = gl.getUniformLocation(program, 'colorEnd');
@@ -207,14 +206,25 @@ const { strongAtTop = false } = Astro.props;
 			gl.uniform3fv(colorEndLocation, readColorVariable('--dither-color-end', [0.96, 0.53, 0.38]));
 		}
 
+		let sizedForWidth = 0;
+		let sizedForHeight = 0;
+
 		function resizeCanvas() {
 			if (!gl) return;
 			const pixelRatio = Math.min(window.devicePixelRatio || 1, maximumPixelRatio);
-			canvas.width = Math.round(window.innerWidth * pixelRatio);
-			canvas.height = Math.round(window.innerHeight * pixelRatio);
+			const devicePixelsPerDot = Math.max(1, Math.round(dotSizeInCssPixels * pixelRatio));
+			sizedForWidth = window.innerWidth;
+			sizedForHeight = window.innerHeight;
+			canvas.width = Math.ceil((sizedForWidth * pixelRatio) / devicePixelsPerDot);
+			canvas.height = Math.ceil((sizedForHeight * pixelRatio) / devicePixelsPerDot);
 			gl.viewport(0, 0, canvas.width, canvas.height);
 			gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
-			gl.uniform1f(dotSizeLocation, Math.max(1, Math.round(dotSizeInCssPixels * pixelRatio)));
+		}
+
+		function onlyAddressBarMoved(): boolean {
+			const sameWidth = window.innerWidth === sizedForWidth;
+			const smallHeightChange = Math.abs(window.innerHeight - sizedForHeight) < sizedForHeight * ignoredHeightChangeShare;
+			return sameWidth && smallHeightChange;
 		}
 
 		function currentIntensity(): number {
@@ -275,6 +285,7 @@ const { strongAtTop = false } = Astro.props;
 		start();
 
 		window.addEventListener('resize', () => {
+			if (onlyAddressBarMoved()) return;
 			resizeCanvas();
 			drawFrame(reducedMotion.matches ? 0 : lastTimeInSeconds);
 		});
@@ -312,6 +323,7 @@ const { strongAtTop = false } = Astro.props;
 		inset: 0;
 		width: 100%;
 		height: 100%;
+		image-rendering: pixelated;
 		opacity: var(--dither-opacity);
 		animation: dither-fade-in 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
 	}
