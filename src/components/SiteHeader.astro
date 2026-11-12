@@ -1,17 +1,15 @@
 ---
 import { Image } from 'astro:assets';
-import emberrIcon from '../assets/emberr-icon.png';
+import emberrGhost from '../assets/emberr-ghost.png';
 import ButtonLink from './ButtonLink.astro';
 ---
 
 <header class="site-header">
-	<div class="header-backdrop" aria-hidden="true"></div>
 	<div class="header-bar">
-		<a class="glass brand" href="/">
-			<Image src={emberrIcon} alt="" width={26} height={26} loading="eager" />
-			<span>Emberr</span>
+		<a class="brand" href="/" aria-label="Emberr home">
+			<Image src={emberrGhost} alt="" width={46} height={44} loading="eager" />
 		</a>
-		<nav class="glass site-nav" aria-label="Main">
+		<nav class="frosted-bar site-nav" aria-label="Main">
 			<a class="nav-link" href="/#features">Features</a>
 			<a class="nav-link" href="/#privacy">Privacy</a>
 			<a class="nav-link" href="https://github.com/emberr-app/Emberr">GitHub</a>
@@ -25,17 +23,11 @@ import ButtonLink from './ButtonLink.astro';
 		position: fixed;
 		inset: 0 0 auto;
 		z-index: 50;
+		pointer-events: none;
 	}
 
-	.header-backdrop {
-		position: absolute;
-		inset: 0 0 auto;
-		height: 7rem;
-		pointer-events: none;
-		-webkit-backdrop-filter: blur(20px);
-		backdrop-filter: blur(20px);
-		-webkit-mask-image: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.9) 38%, transparent);
-		mask-image: linear-gradient(180deg, #000000 0%, rgba(0, 0, 0, 0.9) 38%, transparent);
+	.header-bar > * {
+		pointer-events: auto;
 	}
 
 	.header-bar {
@@ -48,21 +40,60 @@ import ButtonLink from './ButtonLink.astro';
 		padding-inline: var(--page-gutter);
 	}
 
+	@media (min-width: 1024px) {
+		.header-bar {
+			padding-inline: 48px;
+		}
+	}
+
 	.brand {
-		display: inline-flex;
-		align-items: center;
-		gap: 10px;
-		height: 48px;
-		padding: 0 18px 0 12px;
+		display: inline-grid;
+		place-items: center;
+		width: 56px;
+		height: 56px;
+		margin-top: 12px;
 		border-radius: 9999px;
-		font-size: 1.0625rem;
-		font-weight: 500;
-		letter-spacing: -0.02em;
-		text-decoration: none;
+		transition: transform 300ms ease;
+	}
+
+	.brand:hover {
+		transform: rotate(-8deg);
 	}
 
 	.brand :global(img) {
-		border-radius: 7px;
+		filter: invert(1);
+		animation: ghost-float 4s ease-in-out infinite;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		.brand :global(img) {
+			filter: none;
+		}
+	}
+
+	@keyframes ghost-float {
+		0%,
+		100% {
+			transform: translateY(0) rotate(0deg);
+		}
+
+		25% {
+			transform: translateY(-3px) rotate(-3deg);
+		}
+
+		50% {
+			transform: translateY(-5px) rotate(0deg);
+		}
+
+		75% {
+			transform: translateY(-3px) rotate(3deg);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.brand :global(img) {
+			animation: none;
+		}
 	}
 
 	.site-nav {
@@ -72,7 +103,7 @@ import ButtonLink from './ButtonLink.astro';
 	.nav-link {
 		padding: 8px 14px;
 		border-radius: 9999px;
-		color: var(--color-text-muted);
+		color: color-mix(in srgb, var(--color-text) 75%, transparent);
 		font-size: 0.875rem;
 		font-weight: 500;
 		text-decoration: none;

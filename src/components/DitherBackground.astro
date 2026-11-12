@@ -15,6 +15,7 @@ const { strongAtTop = false } = Astro.props;
 	const quietIntensity = 0.35;
 	const dotSizeInCssPixels = 1.25;
 	const maximumPixelRatio = 2;
+	const idleMotionSpeed = 0.35;
 	const springStiffness = 0.012;
 	const springDamping = 0.9;
 	const sagFromSpeed = 45;
@@ -247,7 +248,7 @@ const { strongAtTop = false } = Astro.props;
 
 		function animate(timestamp: number) {
 			updateCloth();
-			drawFrame(timestamp / 1000);
+			drawFrame((timestamp / 1000) * idleMotionSpeed);
 			animationFrameId = requestAnimationFrame(animate);
 		}
 
