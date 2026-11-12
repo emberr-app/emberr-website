@@ -1,0 +1,23 @@
+---
+import { iconMarkup, type HighlightColorName, type IconName } from './icons';
+
+interface Props {
+	icon: IconName;
+	color: HighlightColorName;
+	size?: 'small' | 'regular';
+}
+
+const { icon, color, size = 'regular' } = Astro.props;
+---
+
+<span class:list={['icon-tile', `icon-tile-${size}`, `icon-tile-${color}`]} aria-hidden="true">
+	<svg
+		viewBox="0 0 24 24"
+		fill="none"
+		stroke="currentColor"
+		stroke-width="1.75"
+		stroke-linecap="round"
+		stroke-linejoin="round"
+		set:html={iconMarkup[icon]}
+	/>
+</span>

@@ -1,0 +1,87 @@
+---
+import IconTile from './IconTile.astro';
+import type { HighlightColorName, IconName } from './icons';
+
+interface AppFact {
+	value: string;
+	label: string;
+	icon: IconName;
+	color: HighlightColorName;
+}
+
+const appFacts: AppFact[] = [
+	{ value: '13', label: 'color themes', icon: 'contrast', color: 'pink' },
+	{ value: '18', label: 'languages', icon: 'globe', color: 'blue' },
+	{ value: '4', label: 'notes side by side on desktop', icon: 'columns', color: 'green' },
+	{ value: '80–200%', label: 'interface scale', icon: 'scale', color: 'orange' },
+	{ value: '0', label: 'trackers or ads', icon: 'shield', color: 'lime' }
+];
+---
+
+<section class="page-width app-facts" aria-label="Emberr at a glance">
+	<ul class="facts-list">
+		{
+			appFacts.map((fact) => (
+				<li class="fact">
+					<IconTile icon={fact.icon} color={fact.color} />
+					<p class="fact-value">{fact.value}</p>
+					<p class="fact-label">{fact.label}</p>
+				</li>
+			))
+		}
+	</ul>
+</section>
+
+<style>
+	.app-facts {
+		padding-bottom: 80px;
+	}
+
+	.facts-list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 32px 16px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.fact {
+		padding-top: 20px;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.fact-value {
+		margin-top: 16px;
+		font-family: var(--font-sans);
+		font-size: 2.25rem;
+		font-weight: 700;
+		line-height: 1.1;
+		letter-spacing: -0.002em;
+	}
+
+	.fact-label {
+		margin-top: 4px;
+		color: var(--color-text-secondary);
+		font-family: var(--font-sans);
+		font-size: 0.9375rem;
+		letter-spacing: -0.005em;
+	}
+
+	@media (min-width: 640px) {
+		.facts-list {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 960px) {
+		.app-facts {
+			padding-bottom: 120px;
+		}
+
+		.facts-list {
+			grid-template-columns: repeat(5, minmax(0, 1fr));
+			gap: 24px;
+		}
+	}
+</style>

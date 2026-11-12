@@ -12,6 +12,21 @@
 - AI only if you want it: AI is off by default. Turn it on to run a local model on your device, or use your own API key.
 - Import notes from Markdown and Obsidian.
 
+## Blocks
+
+- Text and headings: paragraphs, headings, quotes and lists.
+- To-do lists: checkboxes for tasks inside any note.
+- Toggles: fold a section away until you need it.
+- Tables: rows and columns, right in the note.
+- Databases: rows with properties, in views you set up.
+- Canvas: draw freehand and connect ideas with arrows.
+- Code: code blocks for snippets and commands.
+- Images and documents: attach photos and files to any note.
+- Voice notes: record audio straight into a note.
+- Links: bookmark web pages and link notes together.
+- Logins: usernames and passwords, with a password generator.
+- Movies and shows: a watchlist with posters and details.
+
 ## Privacy
 
 - Emberr has no accounts (yet), no analytics, no ads and no tracking.

@@ -5,70 +5,49 @@ import ButtonLink from './ButtonLink.astro';
 ---
 
 <header class="site-header">
-	<div class="header-bar">
-		<a class="brand" href="/" aria-label="Emberr home">
-			<Image src={emberrGhost} alt="" width={46} height={44} loading="eager" />
+	<div class="page-width header-bar">
+		<a class="brand" href="/">
+			<Image src={emberrGhost} alt="" width={30} height={29} loading="eager" />
+			<span class="brand-name">Emberr</span>
 		</a>
-		<nav class="frosted-bar site-nav" aria-label="Main">
-			<a class="nav-link" href="/#features">Features</a>
-			<a class="nav-link" href="/#privacy">Privacy</a>
-			<a class="nav-link" href="https://github.com/emberr-app/Emberr">GitHub</a>
-		</nav>
-		<ButtonLink href="/#download" size="small">Download</ButtonLink>
+		<div class="header-end">
+			<nav class="site-nav" aria-label="Main">
+				<a class="nav-link" href="/#features">Features</a>
+				<a class="nav-link" href="/#privacy">Privacy</a>
+				<a class="nav-link" href="https://github.com/emberr-app/Emberr">GitHub</a>
+			</nav>
+			<ButtonLink href="/#download" size="small">Download</ButtonLink>
+		</div>
 	</div>
 </header>
 
 <style>
 	.site-header {
-		position: fixed;
-		inset: 0 0 auto;
+		position: sticky;
+		top: 0;
 		z-index: 50;
-		pointer-events: none;
-	}
-
-	.header-bar > * {
-		pointer-events: auto;
+		border-bottom: 1px solid var(--color-border);
+		background-color: var(--color-canvas);
 	}
 
 	.header-bar {
-		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
 		gap: 12px;
-		height: 80px;
-		padding-inline: var(--page-gutter);
-	}
-
-	@media (min-width: 1024px) {
-		.header-bar {
-			padding-inline: 48px;
-		}
+		height: var(--header-height);
 	}
 
 	.brand {
-		display: inline-grid;
-		place-items: center;
-		width: 56px;
-		height: 56px;
-		margin-top: 12px;
-		border-radius: 9999px;
-		transition: transform 300ms ease;
-	}
-
-	.brand:hover {
-		transform: rotate(-8deg);
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		text-decoration: none;
 	}
 
 	.brand :global(img) {
 		filter: invert(1);
 		animation: ghost-float 4s ease-in-out infinite;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		.brand :global(img) {
-			filter: none;
-		}
 	}
 
 	@keyframes ghost-float {
@@ -78,15 +57,15 @@ import ButtonLink from './ButtonLink.astro';
 		}
 
 		25% {
-			transform: translateY(-3px) rotate(-3deg);
+			transform: translateY(-2px) rotate(-3deg);
 		}
 
 		50% {
-			transform: translateY(-5px) rotate(0deg);
+			transform: translateY(-3px) rotate(0deg);
 		}
 
 		75% {
-			transform: translateY(-3px) rotate(3deg);
+			transform: translateY(-2px) rotate(3deg);
 		}
 	}
 
@@ -96,36 +75,45 @@ import ButtonLink from './ButtonLink.astro';
 		}
 	}
 
+	.brand-name {
+		font-family: var(--font-sans);
+		font-size: 0.8125rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.header-end {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+	}
+
 	.site-nav {
 		display: none;
 	}
 
 	.nav-link {
-		padding: 8px 14px;
-		border-radius: 9999px;
-		color: color-mix(in srgb, var(--color-text) 75%, transparent);
-		font-size: 0.875rem;
-		font-weight: 500;
+		padding: 8px 12px;
+		color: var(--color-text-secondary);
+		font-family: var(--font-sans);
+		font-size: 0.9375rem;
+		letter-spacing: -0.005em;
 		text-decoration: none;
 		transition: color 200ms ease;
 	}
 
 	.nav-link:hover {
 		color: var(--color-text);
+		text-decoration: underline;
+		text-underline-offset: 5px;
 	}
 
 	@media (min-width: 768px) {
 		.site-nav {
-			position: absolute;
-			top: 50%;
-			left: 50%;
 			display: flex;
 			align-items: center;
-			gap: 2px;
-			height: 48px;
-			padding-inline: 6px;
-			border-radius: 9999px;
-			transform: translate(-50%, -50%);
+			margin-right: 12px;
 		}
 	}
 </style>

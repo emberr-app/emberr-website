@@ -20,12 +20,12 @@ Run these from this folder:
 ```text
 public/                 files served as they are (favicon, robots.txt, llms.txt)
 src/
-  assets/               icon, screenshot and Poppins fonts, processed by Astro
+  assets/               icon, screenshot and Inter, Lora and JetBrains Mono fonts, processed by Astro
   components/           page sections, header, footer, buttons, download cards
   documents/            privacy-policy.md, a copy of the app's PRIVACY.md
   layouts/Layout.astro  shared <head>: SEO and Open Graph tags, font, colors
   pages/                index.astro (/) and privacy.astro (/privacy)
-  styles/global.css     light and dark colors and base styles
+  styles/global.css     colors and base styles
 ```
 
 ## Keeping things in step

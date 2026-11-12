@@ -1,11 +1,12 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import styles from './DownloadCards.module.css';
+import { iconMarkup, type HighlightColorName, type IconName } from './icons';
 
 type Platform = 'android' | 'linux' | 'windows';
 
 const defaultPlatformOrder: Platform[] = ['android', 'linux', 'windows'];
 const latestReleaseDownloadUrl = 'https://github.com/emberr-app/Emberr/releases/latest/download';
-const cardButtonClass = `button-link button-link-regular ${styles.cardButton}`;
+const cardButtonClass = `button-link button-link-regular button-link-outline ${styles.cardButton}`;
 
 function detectVisitorPlatform(): Platform | null {
 	const userAgent = navigator.userAgent;
@@ -13,6 +14,22 @@ function detectVisitorPlatform(): Platform | null {
 	if (/Windows/i.test(userAgent)) return 'windows';
 	if (/Linux/i.test(userAgent) && !/CrOS/i.test(userAgent)) return 'linux';
 	return null;
+}
+
+function PlatformIcon({ icon, color }: { icon: IconName; color: HighlightColorName }) {
+	return (
+		<span className={`icon-tile icon-tile-small icon-tile-${color}`} aria-hidden="true">
+			<svg
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				strokeWidth="1.75"
+				strokeLinecap="round"
+				strokeLinejoin="round"
+				dangerouslySetInnerHTML={{ __html: iconMarkup[icon] }}
+			/>
+		</span>
+	);
 }
 
 function AndroidDownload() {
@@ -82,10 +99,10 @@ function WindowsDownload() {
 	);
 }
 
-const platformCards: Record<Platform, { name: string; content: ReactNode }> = {
-	android: { name: 'Android', content: <AndroidDownload /> },
-	linux: { name: 'Linux', content: <LinuxDownload /> },
-	windows: { name: 'Windows', content: <WindowsDownload /> }
+const platformCards: Record<Platform, { name: string; icon: IconName; color: HighlightColorName; content: ReactNode }> = {
+	android: { name: 'Android', icon: 'phone', color: 'green', content: <AndroidDownload /> },
+	linux: { name: 'Linux', icon: 'terminal', color: 'orange', content: <LinuxDownload /> },
+	windows: { name: 'Windows', icon: 'monitor', color: 'blue', content: <WindowsDownload /> }
 };
 
 export default function DownloadCards() {
@@ -104,7 +121,10 @@ export default function DownloadCards() {
 			{platformOrder.map((platform) => (
 				<li key={platform} className={styles.card}>
 					<div className={styles.cardHeader}>
-						<h3 className={styles.cardTitle}>{platformCards[platform].name}</h3>
+						<div className={styles.cardName}>
+							<PlatformIcon icon={platformCards[platform].icon} color={platformCards[platform].color} />
+							<h3 className={styles.cardTitle}>{platformCards[platform].name}</h3>
+						</div>
 						{platform === visitorPlatform && <span className={styles.visitorBadge}>Your system</span>}
 					</div>
 					{platformCards[platform].content}
