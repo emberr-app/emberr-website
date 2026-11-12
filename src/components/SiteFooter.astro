@@ -1,0 +1,170 @@
+---
+import { Image } from 'astro:assets';
+import emberrIcon from '../assets/emberr-icon.png';
+
+interface FooterLink {
+	label: string;
+	href: string;
+}
+
+interface FooterGroup {
+	title: string;
+	links: FooterLink[];
+}
+
+const footerGroups: FooterGroup[] = [
+	{
+		title: 'Product',
+		links: [
+			{ label: 'Features', href: '/#features' },
+			{ label: 'Privacy', href: '/#privacy' },
+			{ label: 'Download', href: '/#download' }
+		]
+	},
+	{
+		title: 'Resources',
+		links: [
+			{ label: 'Releases', href: 'https://github.com/emberr-app/Emberr/releases' },
+			{ label: 'Source code', href: 'https://github.com/emberr-app/Emberr' },
+			{ label: 'Privacy policy', href: '/privacy' }
+		]
+	},
+	{
+		title: 'Community',
+		links: [
+			{ label: 'Reddit', href: 'https://www.reddit.com/r/Emberr/' },
+			{ label: 'X', href: 'https://x.com/emberr_app' },
+			{ label: 'Issues', href: 'https://github.com/emberr-app/Emberr/issues' },
+			{ label: 'Contributing', href: 'https://github.com/emberr-app/Emberr/blob/main/CONTRIBUTING.md' }
+		]
+	}
+];
+---
+
+<footer class="site-footer">
+	<div class="page-width footer-content">
+		<div class="footer-columns">
+			<div>
+				<a class="footer-brand" href="/">
+					<Image src={emberrIcon} alt="" width={28} height={28} />
+					<span>Emberr</span>
+				</a>
+				<p class="footer-tagline">Free and open source. Your data stays on your device.</p>
+			</div>
+			{
+				footerGroups.map((group) => (
+					<nav aria-label={group.title}>
+						<h2 class="footer-heading">{group.title}</h2>
+						<ul class="footer-links">
+							{group.links.map((link) => (
+								<li>
+									<a href={link.href}>{link.label}</a>
+								</li>
+							))}
+						</ul>
+					</nav>
+				))
+			}
+		</div>
+		<div class="footer-bottom">
+			<p>
+				Licensed under the <a href="https://github.com/emberr-app/Emberr/blob/main/LICENSE">GNU AGPL-3.0</a>
+			</p>
+			<p>Made by <a href="https://github.com/benny10ben">Benny</a></p>
+		</div>
+	</div>
+</footer>
+
+<style>
+	.site-footer {
+		border-top: 1px solid var(--color-border-soft);
+	}
+
+	.footer-content {
+		padding-block: 56px 40px;
+	}
+
+	.footer-columns {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 40px;
+	}
+
+	.footer-brand {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		font-weight: 500;
+		letter-spacing: -0.02em;
+		text-decoration: none;
+	}
+
+	.footer-brand :global(img) {
+		border-radius: 7px;
+	}
+
+	.footer-tagline {
+		max-width: 20rem;
+		margin-top: 16px;
+		color: var(--color-text-muted);
+		font-size: 0.875rem;
+		line-height: 1.65;
+	}
+
+	.footer-heading {
+		font-size: 0.875rem;
+		letter-spacing: 0;
+	}
+
+	.footer-links {
+		display: grid;
+		gap: 10px;
+		margin: 16px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.footer-links a {
+		color: var(--color-text-muted);
+		font-size: 0.875rem;
+		text-decoration: none;
+		transition: color 150ms ease;
+	}
+
+	.footer-links a:hover {
+		color: var(--color-text);
+	}
+
+	.footer-bottom {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		gap: 8px 24px;
+		margin-top: 56px;
+		padding-top: 28px;
+		border-top: 1px solid var(--color-border-soft);
+		color: var(--color-text-muted);
+		font-size: 0.8125rem;
+	}
+
+	.footer-bottom a:hover {
+		color: var(--color-text);
+	}
+
+	@media (min-width: 640px) {
+		.footer-columns {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 48px;
+		}
+
+		.footer-content {
+			padding-block: 80px 48px;
+		}
+	}
+
+	@media (min-width: 1000px) {
+		.footer-columns {
+			grid-template-columns: 1.4fr repeat(3, minmax(0, 1fr));
+		}
+	}
+</style>

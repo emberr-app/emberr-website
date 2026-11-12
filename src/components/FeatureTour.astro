@@ -1,0 +1,312 @@
+---
+import { Image } from 'astro:assets';
+import screenshots from '../assets/screenshots.png';
+import ScreenshotCrop from './ScreenshotCrop.astro';
+
+interface SmallFeature {
+	title: string;
+	description: string;
+}
+
+const smallFeatures: SmallFeature[] = [
+	{
+		title: 'Spaces and people',
+		description:
+			'Keep work, personal and school apart in separate spaces. Keep track of people, their details and the tasks you assign them, imported from your phone or a .vcf file.'
+	},
+	{
+		title: 'Make it yours',
+		description: '13 color themes, paper texture, interface scale from 80% to 200% and 18 languages.'
+	},
+	{
+		title: 'AI only if you want it',
+		description: 'AI is off by default. Turn it on to run a local model on your device, or use your own API key.'
+	},
+	{
+		title: 'Bring your notes',
+		description: 'Import from Markdown and Obsidian. On Android, add home screen widgets and lock the app with App Lock.'
+	}
+];
+---
+
+<div id="features" class="page-width tour">
+	<section id="notes" aria-labelledby="notes-title">
+		<div class="section-heading">
+			<h2 id="notes-title">From a quick thought<br />to a whole workspace.</h2>
+			<div>
+				<p>
+					Every note in Emberr is built from blocks. A paragraph, a checklist, a table, a database, a canvas, a
+					login with a password generator or a movie you want to watch: each one is a piece you can move
+					around. Press / for any kind of block, and @ to link another note.
+				</p>
+				<p>Attach images, documents and voice notes to any note, and open up to 4 notes side by side on desktop.</p>
+			</div>
+		</div>
+		<div class="stage stage-notes">
+			<div class="stage-frame stage-frame-desktop">
+				<ScreenshotCrop
+					alt="Emberr on desktop: the sidebar with Tasks, Bookmarks, favorites and folders, next to an open note called Start here with a mountain cover image."
+					cropLeft={350}
+					cropTop={347}
+					cropWidth={1260}
+					cropHeight={805}
+					sizes="(min-width: 1320px) 1530px, 125vw"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<section id="today" class="tour-split" aria-labelledby="today-title">
+		<div class="split-copy">
+			<h2 id="today-title">Every day gets<br />a page of its own.</h2>
+			<p>Today opens on a page for your thoughts and tasks. Give a task a time and Emberr reminds you.</p>
+			<p>
+				The built-in calendar has all-day and repeating events you can drag to move or resize, and Android home
+				screen widgets keep today one glance away.
+			</p>
+		</div>
+		<div class="stage stage-today">
+			<div class="stage-frame stage-frame-phone">
+				<ScreenshotCrop
+					alt="Emberr on Android: the Today page with the next few days, 1 Pending and 1 Done chips, and a welcome note."
+					cropLeft={11}
+					cropTop={10}
+					cropWidth={384}
+					cropHeight={320}
+					sizes="1755px"
+				/>
+			</div>
+		</div>
+	</section>
+
+	<section id="sync" aria-labelledby="sync-title">
+		<div class="section-heading">
+			<h2 id="sync-title">Sync on your terms.</h2>
+			<div>
+				<p>
+					Sync your phone and desktop over your own network. Your data is encrypted and signed, even on public
+					Wi-Fi, and never leaves your local network.
+				</p>
+				<p>
+					Prefer a server? Self-host on your own WebDAV server, with everything encrypted on your device before
+					upload. No account needed.
+				</p>
+			</div>
+		</div>
+		<div class="stage stage-sync">
+			<Image
+				src={screenshots}
+				alt="Emberr open on an Android phone and on a desktop computer side by side."
+				widths={[800, 1200, screenshots.width]}
+				sizes="(min-width: 1320px) 1100px, 90vw"
+				loading="lazy"
+			/>
+		</div>
+	</section>
+
+	<section class="more" aria-labelledby="more-title">
+		<h2 id="more-title" class="more-title">And there’s more.</h2>
+		<ul class="more-grid">
+			{
+				smallFeatures.map((feature) => (
+					<li class="more-item">
+						<h3 class="more-item-title">{feature.title}</h3>
+						<p class="more-item-description">{feature.description}</p>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+</div>
+
+<style>
+	.tour {
+		padding-bottom: 56px;
+	}
+
+	.tour h2 {
+		font-size: clamp(2rem, 4vw, 3.5rem);
+		letter-spacing: -0.045em;
+	}
+
+	.tour p {
+		max-width: 455px;
+		margin-bottom: 14px;
+		color: var(--color-text-muted);
+		line-height: 1.75;
+	}
+
+	.section-heading {
+		padding: 16px 0 28px;
+	}
+
+	.section-heading h2 {
+		margin-bottom: 20px;
+	}
+
+	.stage {
+		border-radius: 16px;
+		color: var(--color-on-pastel);
+	}
+
+	.stage-frame {
+		overflow: hidden;
+		border: 1px solid rgba(38, 34, 36, 0.14);
+		background-color: #000000;
+		box-shadow: 0 18px 50px -25px rgba(38, 30, 60, 0.45);
+	}
+
+	.stage-notes {
+		padding: 22px 16px 0;
+		background-color: var(--color-pastel-lilac);
+	}
+
+	.stage-frame-desktop {
+		border-bottom: none;
+		border-radius: 8px 8px 0 0;
+	}
+
+	.tour-split {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+		margin-block: 64px;
+	}
+
+	.split-copy h2 {
+		margin-bottom: 20px;
+	}
+
+	.stage-today {
+		padding: 24px 16px;
+		background-color: var(--color-pastel-yellow);
+	}
+
+	.stage-frame-phone {
+		max-width: 420px;
+		margin-inline: auto;
+		border-radius: 12px;
+	}
+
+	.stage-sync {
+		padding: 22px 16px;
+		background-color: var(--color-pastel-peach);
+	}
+
+	.more {
+		padding-top: 64px;
+	}
+
+	.more-title {
+		margin-bottom: 32px;
+	}
+
+	.more-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 28px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.more-item {
+		padding-top: 20px;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.more-item-title {
+		font-size: 1.125rem;
+		letter-spacing: -0.02em;
+	}
+
+	.tour .more-item-description {
+		margin: 8px 0 0;
+		font-size: 0.9375rem;
+		line-height: 1.65;
+	}
+
+	@media (min-width: 640px) {
+		.more-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 900px) {
+		.tour {
+			padding-bottom: 96px;
+		}
+
+		.tour p {
+			font-size: 1.0625rem;
+			line-height: 1.65;
+		}
+
+		.section-heading {
+			display: grid;
+			grid-template-columns: 1.1fr 0.9fr;
+			align-items: start;
+			gap: 48px;
+			padding: 32px 0 48px;
+		}
+
+		.section-heading h2 {
+			margin-bottom: 0;
+		}
+
+		.stage {
+			border-radius: 24px;
+		}
+
+		.stage-notes {
+			padding: 48px 48px 0;
+		}
+
+		.stage-frame-desktop {
+			border-radius: 12px 12px 0 0;
+		}
+
+		.tour-split {
+			display: grid;
+			grid-template-columns: 0.75fr 1.25fr;
+			align-items: center;
+			gap: 48px;
+			margin-block: 112px;
+		}
+
+		.split-copy p {
+			max-width: 360px;
+		}
+
+		.stage-today {
+			padding: 56px 36px;
+			transform: rotate(1deg);
+		}
+
+		.stage-today .stage-frame-phone {
+			transform: rotate(-1deg);
+		}
+
+		.stage-sync {
+			padding: 48px 64px;
+		}
+
+		.more {
+			padding-top: 96px;
+		}
+
+		.more-grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.section-heading {
+			gap: 80px;
+		}
+
+		.stage-notes {
+			padding: 64px 64px 0;
+		}
+	}
+</style>
