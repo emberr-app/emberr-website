@@ -1,11 +1,53 @@
 ---
-import Welcome from '../components/Welcome.astro';
+import emberrIcon from '../assets/emberr-icon.png';
+import screenshots from '../assets/screenshots.png';
+import Downloads from '../components/Downloads.astro';
+import FeatureTour from '../components/FeatureTour.astro';
+import Hero from '../components/Hero.astro';
+import Privacy from '../components/Privacy.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const pageTitle = 'Emberr: Private Workspace';
+const pageDescription =
+	'Emberr is a free, open-source, offline-first notes, calendar and reminder app for Android, Linux and Windows. Your data stays on your device.';
+
+const softwareApplicationData = {
+	'@context': 'https://schema.org',
+	'@type': 'SoftwareApplication',
+	name: 'Emberr',
+	alternateName: 'Emberr: Private Workspace',
+	description: pageDescription,
+	url: 'https://emberr.app/',
+	applicationCategory: 'ProductivityApplication',
+	operatingSystem: 'Android, Linux, Windows',
+	isAccessibleForFree: true,
+	license: 'https://www.gnu.org/licenses/agpl-3.0.html',
+	image: new URL(emberrIcon.src, Astro.site).href,
+	screenshot: new URL(screenshots.src, Astro.site).href,
+	downloadUrl: 'https://github.com/emberr-app/Emberr/releases',
+	author: {
+		'@type': 'Person',
+		name: 'Benny',
+		url: 'https://github.com/benny10ben'
+	},
+	sameAs: [
+		'https://github.com/emberr-app/Emberr',
+		'https://x.com/emberr_app',
+		'https://www.reddit.com/r/Emberr/'
+	]
+};
 ---
 
-<Layout>
-	<Welcome />
+<Layout title={pageTitle} description={pageDescription}>
+	<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(softwareApplicationData)} />
+	<SiteHeader />
+	<main>
+		<Hero />
+		<FeatureTour />
+		<Privacy />
+		<Downloads />
+	</main>
+	<SiteFooter />
 </Layout>

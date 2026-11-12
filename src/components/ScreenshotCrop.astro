@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import screenshots from '../assets/screenshots.png';
+
+interface Props {
+	alt: string;
+	cropLeft: number;
+	cropTop: number;
+	cropWidth: number;
+	cropHeight: number;
+	sizes: string;
+}
+
+const { alt, cropLeft, cropTop, cropWidth, cropHeight, sizes } = Astro.props;
+
+const cropStyle = {
+	'--crop-ratio': `${cropWidth} / ${cropHeight}`,
+	'--crop-image-width': `${(screenshots.width / cropWidth) * 100}%`,
+	'--crop-image-left': `${(-cropLeft / cropWidth) * 100}%`,
+	'--crop-image-top': `${(-cropTop / cropHeight) * 100}%`
+};
+---
+
+<div class="screenshot-crop" style={cropStyle}>
+	<Image src={screenshots} alt={alt} widths={[800, 1200, screenshots.width]} sizes={sizes} loading="lazy" />
+</div>
+
+<style>
+	.screenshot-crop {
+		position: relative;
+		aspect-ratio: var(--crop-ratio);
+		overflow: hidden;
+	}
+
+	.screenshot-crop :global(img) {
+		position: absolute;
+		top: var(--crop-image-top);
+		left: var(--crop-image-left);
+		width: var(--crop-image-width);
+		max-width: none;
+	}
+</style>

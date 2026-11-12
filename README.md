@@ -1,46 +1,44 @@
-# Astro Starter Kit: Basics
+# Emberr website
 
-```sh
-npm create astro@latest -- --template basics
-```
+The landing page for [Emberr](https://github.com/emberr-app/Emberr) at https://emberr.app.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Built with [Astro](https://astro.build) as a fully static site. The download cards are the only React island; everything else is plain HTML and CSS.
 
-## 🚀 Project Structure
+## Commands
 
-Inside of your Astro project, you'll see the following folders and files:
+Run these from this folder:
+
+| Command           | What it does                                  |
+| :---------------- | :-------------------------------------------- |
+| `npm install`     | Installs dependencies                         |
+| `npm run dev`     | Starts the dev server at `localhost:4321`     |
+| `npm run build`   | Builds the site into `dist/`                  |
+| `npm run preview` | Serves the built site locally to check it     |
+
+## Layout
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+public/                 files served as they are (favicon, robots.txt, llms.txt)
+src/
+  assets/               icon, screenshot and Poppins fonts, processed by Astro
+  components/           page sections, header, footer, buttons, download cards
+  documents/            privacy-policy.md, a copy of the app's PRIVACY.md
+  layouts/Layout.astro  shared <head>: SEO and Open Graph tags, font, colors
+  pages/                index.astro (/) and privacy.astro (/privacy)
+  styles/global.css     light and dark colors and base styles
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+## Keeping things in step
 
-## 🧞 Commands
+- **Privacy policy:** `src/documents/privacy-policy.md` is a copy of [PRIVACY.md](https://github.com/emberr-app/Emberr/blob/main/PRIVACY.md). When the policy changes, copy it again. The only difference is that the `SECURITY.md` link points to GitHub.
+- **Page text:** `public/llms.txt` and the JSON-LD data in `src/pages/index.astro` describe the same things as the page. Update them when the features, privacy points or downloads change.
+- **Download links** use `releases/latest/download/<file name>`, so release file names must stay the same.
+- **Colors** match the app's default Emberr theme.
 
-All commands are run from the root of the project, from a terminal:
+## Hosting
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Deployed on Cloudflare Pages from the `main` branch.
 
-## 👀 Want to learn more?
+## License
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+GNU AGPL-3.0, like the app.

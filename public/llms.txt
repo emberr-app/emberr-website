@@ -1,0 +1,38 @@
+# Emberr
+
+> Emberr: Private Workspace is a free, open-source (GNU AGPL-3.0), offline-first notes, tasks, calendar and reminder app for Android, Linux and Windows. Your data stays on your device unless you choose otherwise. Emberr is in beta.
+
+## Features
+
+- Block editor: build notes from blocks: checklists, tables, databases, canvases, logins with a password generator, a movie and show watchlist, and more. Attach images, documents and voice notes to any note.
+- Daily notes and calendar: every day gets its own page for your thoughts and tasks. A built-in calendar and reminders, with all-day and repeating events you can drag to move or resize.
+- Spaces and people: keep work, personal and school apart in separate spaces. Keep track of people, their details and the tasks you assign them, imported from your phone or a .vcf file.
+- Sync on your terms: sync your phone and desktop over your own network, encrypted and signed even on public Wi-Fi. Or self-host on your own WebDAV server, encrypted on your device before upload.
+- Make it yours: 13 color themes, paper texture, interface scale from 80% to 200% and 18 languages. Split view on desktop with up to 4 notes side by side. Home screen widgets and App Lock on Android.
+- AI only if you want it: AI is off by default. Turn it on to run a local model on your device, or use your own API key.
+- Import notes from Markdown and Obsidian.
+
+## Privacy
+
+- Emberr has no accounts (yet), no analytics, no ads and no tracking.
+- Your notes, tasks, reminders, attachments and chats are stored only on your device.
+- Nothing is sent to the developer or to any server the developer runs, except movie and show searches, which pass through a small proxy (see the privacy policy). The developer has no way to see your notes.
+- Emberr only connects to the internet for features you turn on or use, listed in the privacy policy.
+- AI features are disabled by default. Nothing related to AI is downloaded or sent until you turn them on.
+- [Full privacy policy](https://emberr.app/privacy)
+
+## Download
+
+- [Android APK](https://github.com/emberr-app/Emberr/releases/latest/download/Emberr-android.apk)
+- [Google Play closed testing](https://groups.google.com/g/emberr-testers): join the Emberr testers group, then install Emberr: Private Workspace from Google Play using the link in the group.
+- [Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/emberr-app/Emberr): automatic updates on Android from the GitHub releases.
+- [Linux tarball](https://github.com/emberr-app/Emberr/releases/latest/download/emberr-x86_64.tar.gz): recommended for Linux. Adds Emberr to your app menu, for your user only, with no root needed.
+- [Linux AppImage](https://github.com/emberr-app/Emberr/releases/latest/download/Emberr-x86_64.AppImage): one file, nothing to install.
+- [Windows installer](https://github.com/emberr-app/Emberr/releases/latest/download/Emberr-Setup-x86_64.exe): not code-signed yet, so Windows may show "Windows protected your PC". Click More info, then Run anyway.
+- [All releases](https://github.com/emberr-app/Emberr/releases)
+
+## Links
+
+- [Source code on GitHub](https://github.com/emberr-app/Emberr)
+- [Emberr on X](https://x.com/emberr_app)
+- [r/Emberr on Reddit](https://www.reddit.com/r/Emberr/)

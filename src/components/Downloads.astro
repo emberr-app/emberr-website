@@ -1,0 +1,55 @@
+---
+import DownloadCards from './DownloadCards';
+import TextLink from './TextLink.astro';
+---
+
+<section id="download" class="page-width downloads" aria-labelledby="download-title">
+	<h2 id="download-title" class="downloads-title">Try Emberr on<br />your devices.</h2>
+	<p class="downloads-summary">
+		Emberr is in beta. It’s free and open source, so expect some rough edges and tell us what could be better.
+	</p>
+	<DownloadCards client:idle />
+	<div class="downloads-links">
+		<TextLink href="https://github.com/emberr-app/Emberr/releases">All releases on GitHub</TextLink>
+		<TextLink href="https://github.com/emberr-app/Emberr#build-from-source">Build from source</TextLink>
+	</div>
+</section>
+
+<style>
+	.downloads {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		padding-block: 72px;
+		text-align: center;
+	}
+
+	.downloads-title {
+		font-size: clamp(2rem, 4vw, 3.5rem);
+		letter-spacing: -0.045em;
+	}
+
+	.downloads-summary {
+		max-width: 34rem;
+		margin-top: 20px;
+		color: var(--color-text-muted);
+	}
+
+	.downloads-links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 4px 28px;
+		margin-top: 24px;
+	}
+
+	@media (min-width: 900px) {
+		.downloads {
+			padding-block: 120px;
+		}
+
+		.downloads-summary {
+			font-size: 1.0625rem;
+		}
+	}
+</style>

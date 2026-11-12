@@ -1,0 +1,96 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  width: 100%;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  background-color: var(--color-surface);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+}
+
+.visitorBadge {
+  padding: 4px 10px;
+  border-radius: 10px;
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.cardButton {
+  width: 100%;
+}
+
+.note {
+  margin-top: 12px;
+  color: var(--color-text-muted);
+  font-size: 0.875rem;
+}
+
+.note a {
+  color: var(--color-text);
+}
+
+.note strong {
+  color: var(--color-text);
+  font-weight: 500;
+}
+
+.option {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.option .cardButton {
+  margin-top: 12px;
+}
+
+.optionTitle {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+}
+
+.commands {
+  margin: 12px 0 0;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  background-color: var(--color-background);
+  font-family: ui-monospace, 'JetBrains Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  overflow-x: auto;
+}
+
+@media (min-width: 960px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+  }
+}

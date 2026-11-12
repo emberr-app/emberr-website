@@ -1,0 +1,83 @@
+---
+import TextLink from './TextLink.astro';
+
+const privacyPromises: string[] = [
+	'Emberr has no accounts (yet), no analytics, no ads and no tracking.',
+	'Your notes, tasks, reminders, attachments and chats are stored only on your device.',
+	'Nothing is sent to me (the developer) or to any server I run, except movie and show searches, which pass through a small proxy (see the privacy policy). I have no way to see your notes.',
+	'Emberr only connects to the internet for features you turn on or use, listed in the privacy policy.',
+	'AI features are disabled by default. Nothing related to AI is downloaded or sent until you turn them on.'
+];
+---
+
+<section id="privacy" class="privacy-band" aria-labelledby="privacy-title">
+	<div class="page-width privacy">
+		<div class="privacy-intro">
+			<h2 id="privacy-title" class="privacy-title">Your notes<br />stay yours.</h2>
+			<p class="privacy-summary">Emberr works fully offline. This is the short version of the privacy policy.</p>
+		</div>
+		<div>
+			<ul class="privacy-list">
+				{privacyPromises.map((promise) => <li class="privacy-item">{promise}</li>)}
+			</ul>
+			<TextLink href="/privacy">Read the full privacy policy</TextLink>
+		</div>
+	</div>
+</section>
+
+<style>
+	.privacy-band {
+		border-block: 1px solid var(--color-border-soft);
+		background-color: var(--color-surface);
+	}
+
+	.privacy {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 28px;
+		padding-block: 64px;
+	}
+
+	.privacy-title {
+		font-size: clamp(2rem, 4vw, 3.5rem);
+		letter-spacing: -0.045em;
+	}
+
+	.privacy-summary {
+		max-width: 24ch;
+		margin-top: 20px;
+		font-size: clamp(1.125rem, 1.9vw, 1.5rem);
+		line-height: 1.45;
+		letter-spacing: -0.02em;
+	}
+
+	.privacy-list {
+		margin: 0 0 16px;
+		padding: 0;
+		list-style: none;
+	}
+
+	.privacy-item {
+		padding-block: 16px;
+		border-bottom: 1px solid var(--color-border);
+		color: var(--color-text-muted);
+		line-height: 1.65;
+	}
+
+	.privacy-item:first-child {
+		padding-top: 0;
+	}
+
+	@media (min-width: 900px) {
+		.privacy {
+			grid-template-columns: 0.9fr 1.1fr;
+			align-items: start;
+			gap: 80px;
+			padding-block: 112px;
+		}
+
+		.privacy-item {
+			font-size: 1.0625rem;
+		}
+	}
+</style>
