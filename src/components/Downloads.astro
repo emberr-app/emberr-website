@@ -4,7 +4,10 @@ import TextLink from './TextLink.astro';
 ---
 
 <section id="download" class="page-width downloads" aria-labelledby="download-title">
-	<h2 id="download-title" class="downloads-title">Try Emberr on<br />your devices.</h2>
+	<h2 id="download-title" class="section-heading">
+		<span class="heading-strong">Try Emberr.</span>
+		<span class="heading-soft">On Android, Linux and Windows.</span>
+	</h2>
 	<p class="downloads-summary">
 		Emberr is in beta. It’s free and open source, so expect some rough edges and tell us what could be better.
 	</p>
@@ -20,19 +23,15 @@ import TextLink from './TextLink.astro';
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding-block: 72px;
+		padding-block: 80px;
 		text-align: center;
 	}
 
-	.downloads-title {
-		font-size: clamp(2rem, 4vw, 3.5rem);
-		letter-spacing: -0.045em;
-	}
-
 	.downloads-summary {
-		max-width: 34rem;
+		max-width: 30rem;
 		margin-top: 20px;
 		color: var(--color-text-muted);
+		line-height: 1.65;
 	}
 
 	.downloads-links {
@@ -43,9 +42,9 @@ import TextLink from './TextLink.astro';
 		margin-top: 24px;
 	}
 
-	@media (min-width: 900px) {
+	@media (min-width: 960px) {
 		.downloads {
-			padding-block: 120px;
+			padding-block: 120px 140px;
 		}
 
 		.downloads-summary {

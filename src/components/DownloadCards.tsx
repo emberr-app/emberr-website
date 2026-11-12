@@ -6,7 +6,7 @@ type Platform = 'android' | 'linux' | 'windows';
 const defaultPlatformOrder: Platform[] = ['android', 'linux', 'windows'];
 const latestReleaseDownloadUrl = 'https://github.com/emberr-app/Emberr/releases/latest/download';
 const filledButtonClass = `button-link button-link-filled button-link-regular ${styles.cardButton}`;
-const outlinedButtonClass = `button-link button-link-outlined button-link-regular ${styles.cardButton}`;
+const neutralButtonClass = `button-link button-link-neutral button-link-regular ${styles.cardButton}`;
 
 function detectVisitorPlatform(): Platform | null {
 	const userAgent = navigator.userAgent;
@@ -58,7 +58,7 @@ function LinuxDownload() {
 			<div className={styles.option}>
 				<h4 className={styles.optionTitle}>AppImage</h4>
 				<p className={styles.note}>One file, nothing to install.</p>
-				<a className={outlinedButtonClass} href={`${latestReleaseDownloadUrl}/Emberr-x86_64.AppImage`}>
+				<a className={neutralButtonClass} href={`${latestReleaseDownloadUrl}/Emberr-x86_64.AppImage`}>
 					Download AppImage
 				</a>
 				<pre className={styles.commands}>

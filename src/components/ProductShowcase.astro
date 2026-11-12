@@ -1,0 +1,81 @@
+---
+import ScreenshotCrop from './ScreenshotCrop.astro';
+---
+
+<section class="page-width showcase" aria-labelledby="showcase-title">
+	<div class="showcase-intro">
+		<h2 id="showcase-title" class="section-heading">
+			<span class="heading-strong">Every note, block by block.</span>
+			<span class="heading-soft">Every day, on every device.</span>
+		</h2>
+		<p class="showcase-summary">
+			Write in blocks, plan your days and keep your phone and desktop in sync, all without an account.
+		</p>
+	</div>
+	<div class="glass-strong showcase-window">
+		<div class="showcase-screen">
+			<ScreenshotCrop
+				alt="Emberr on desktop: the sidebar with Tasks, Bookmarks, favorites and folders, next to an open note called Start here with a mountain cover image."
+				cropLeft={350}
+				cropTop={347}
+				cropWidth={1260}
+				cropHeight={805}
+				sizes="(min-width: 1000px) 1330px, 135vw"
+			/>
+		</div>
+	</div>
+</section>
+
+<style>
+	.showcase {
+		padding-block: 72px 96px;
+	}
+
+	.showcase-intro {
+		max-width: 48rem;
+		margin-inline: auto;
+		text-align: center;
+	}
+
+	.showcase-summary {
+		max-width: 30rem;
+		margin: 20px auto 0;
+		color: var(--color-text-muted);
+		line-height: 1.65;
+		text-wrap: pretty;
+	}
+
+	.showcase-window {
+		max-width: 960px;
+		margin: 56px auto 0;
+		padding: 6px;
+		border-radius: 18px;
+	}
+
+	.showcase-screen {
+		overflow: hidden;
+		border-radius: 13px;
+		background-color: #000000;
+	}
+
+	@media (min-width: 640px) {
+		.showcase-summary {
+			font-size: 1.0625rem;
+		}
+
+		.showcase-window {
+			padding: 7px;
+			border-radius: 22px;
+		}
+
+		.showcase-screen {
+			border-radius: 16px;
+		}
+	}
+
+	@media (min-width: 960px) {
+		.showcase {
+			padding-block: 140px 120px;
+		}
+	}
+</style>
