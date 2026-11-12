@@ -14,6 +14,7 @@
   --dither-color-middle: 168, 132, 232;
   --dither-color-end: 244, 136, 98;
   --dither-opacity: 0.6;
+  --color-selection: rgba(17, 17, 17, 0.16);
   --grain-opacity: 0.06;
   --grain-blend: multiply;
   --glass-background: rgba(255, 255, 255, 0.66);
@@ -53,6 +54,7 @@
     --dither-color-middle: 196, 164, 236;
     --dither-color-end: 250, 160, 122;
     --dither-opacity: 0.45;
+    --color-selection: rgba(242, 241, 239, 0.24);
     --grain-opacity: 0.025;
     --grain-blend: screen;
     --glass-background: rgba(30, 30, 29, 0.6);
@@ -85,6 +87,10 @@ html {
   html {
     scroll-behavior: smooth;
   }
+}
+
+::selection {
+  background-color: var(--color-selection);
 }
 
 :focus-visible {
