@@ -12,14 +12,14 @@ export default defineConfig({
   fonts: [
     {
       provider: fontProviders.local(),
-      name: 'Poppins',
-      cssVariable: '--font-poppins',
+      name: 'Inter',
+      cssVariable: '--font-inter',
       fallbacks: ['sans-serif'],
       options: {
         variants: [
-          { src: ['./src/assets/fonts/poppins_regular.ttf'], weight: 400, style: 'normal', display: 'swap' },
-          { src: ['./src/assets/fonts/poppins_medium.ttf'], weight: 500, style: 'normal', display: 'swap' },
-          { src: ['./src/assets/fonts/poppins_bold.ttf'], weight: 700, style: 'normal', display: 'swap' }
+          { src: ['./src/assets/fonts/inter_regular.ttf'], weight: 400, style: 'normal', display: 'swap' },
+          { src: ['./src/assets/fonts/inter_medium.ttf'], weight: 500, style: 'normal', display: 'swap' },
+          { src: ['./src/assets/fonts/inter_bold.ttf'], weight: 700, style: 'normal', display: 'swap' }
         ]
       }
     }

@@ -9,9 +9,10 @@ interface Props {
 	cropWidth: number;
 	cropHeight: number;
 	sizes: string;
+	loading?: 'lazy' | 'eager';
 }
 
-const { alt, cropLeft, cropTop, cropWidth, cropHeight, sizes } = Astro.props;
+const { alt, cropLeft, cropTop, cropWidth, cropHeight, sizes, loading = 'lazy' } = Astro.props;
 
 const cropStyle = {
 	'--crop-ratio': `${cropWidth} / ${cropHeight}`,
@@ -22,7 +23,7 @@ const cropStyle = {
 ---
 
 <div class="screenshot-crop" style={cropStyle}>
-	<Image src={screenshots} alt={alt} widths={[800, 1200, screenshots.width]} sizes={sizes} loading="lazy" />
+	<Image src={screenshots} alt={alt} widths={[800, 1200, screenshots.width]} sizes={sizes} loading={loading} />
 </div>
 
 <style>

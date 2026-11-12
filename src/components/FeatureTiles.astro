@@ -1,0 +1,155 @@
+---
+type FeatureGroup = 'Write' | 'Plan' | 'Private';
+
+interface Feature {
+	group: FeatureGroup;
+	title: string;
+	description: string;
+}
+
+const groupColors: Record<FeatureGroup, string> = {
+	Write: 'var(--color-pastel-violet)',
+	Plan: 'var(--color-pastel-yellow)',
+	Private: 'var(--color-pastel-mint)'
+};
+
+const features: Feature[] = [
+	{
+		group: 'Write',
+		title: 'Block editor',
+		description:
+			'Build notes from blocks: checklists, tables, databases, canvases, logins with a password generator, a movie and show watchlist, and more. Attach images, documents and voice notes to any note.'
+	},
+	{
+		group: 'Plan',
+		title: 'Daily notes and calendar',
+		description:
+			'Every day gets its own page for your thoughts and tasks. A built-in calendar and reminders, with all-day and repeating events you can drag to move or resize.'
+	},
+	{
+		group: 'Private',
+		title: 'Sync on your terms',
+		description:
+			'Sync your phone and desktop over your own network, encrypted and signed even on public Wi-Fi. Or self-host on your own WebDAV server, encrypted on your device before upload.'
+	},
+	{
+		group: 'Write',
+		title: 'Make it yours',
+		description:
+			'13 color themes, paper texture, interface scale from 80% to 200% and 18 languages. Split view on desktop with up to 4 notes side by side. Home screen widgets and App Lock on Android.'
+	},
+	{
+		group: 'Plan',
+		title: 'Spaces and people',
+		description:
+			'Keep work, personal and school apart in separate spaces. Keep track of people, their details and the tasks you assign them, imported from your phone or a .vcf file.'
+	},
+	{
+		group: 'Private',
+		title: 'AI only if you want it',
+		description:
+			'AI is off by default. Turn it on to run a local model on your device, or use your own API key.'
+	}
+];
+---
+
+<section id="features" class="page-width features" aria-labelledby="features-title">
+	<div class="features-intro">
+		<h2 id="features-title" class="section-heading">
+			<span class="heading-strong">Everything in one place.</span>
+			<span class="heading-soft">Fully offline.</span>
+		</h2>
+		<p class="features-summary">Write, plan and keep it private, all in one app.</p>
+	</div>
+	<ul class="feature-grid">
+		{
+			features.map((feature) => (
+				<li class="feature-tile" style={{ '--tile-color': groupColors[feature.group] }}>
+					<p class="eyebrow">{feature.group}</p>
+					<h3 class="feature-title">{feature.title}</h3>
+					<p class="feature-description">{feature.description}</p>
+				</li>
+			))
+		}
+	</ul>
+	<p class="features-import">Bring your notes with you: import from Markdown and Obsidian.</p>
+</section>
+
+<style>
+	.features {
+		padding-block: 80px;
+	}
+
+	.features-intro {
+		max-width: 48rem;
+		margin-inline: auto;
+		text-align: center;
+	}
+
+	.features-summary {
+		max-width: 30rem;
+		margin: 20px auto 0;
+		color: var(--color-text-muted);
+		line-height: 1.65;
+	}
+
+	.feature-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 12px;
+		margin: 48px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.feature-tile {
+		display: flex;
+		flex-direction: column;
+		min-height: 220px;
+		padding: 22px;
+		border-radius: 20px;
+		background-color: var(--tile-color);
+		color: var(--color-on-pastel);
+	}
+
+	.feature-title {
+		margin-top: auto;
+		padding-top: 40px;
+		font-size: 1.5rem;
+		letter-spacing: -0.02em;
+	}
+
+	.feature-description {
+		margin-top: 10px;
+		color: var(--color-on-pastel-muted);
+		font-size: 0.9375rem;
+		line-height: 1.45;
+	}
+
+	.features-import {
+		margin-top: 24px;
+		text-align: center;
+		color: var(--color-text-muted);
+		font-size: 0.9375rem;
+	}
+
+	@media (min-width: 640px) {
+		.feature-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 960px) {
+		.features {
+			padding-block: 120px;
+		}
+
+		.feature-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+
+		.feature-tile {
+			min-height: 280px;
+		}
+	}
+</style>
