@@ -1,13 +1,12 @@
 ---
 interface Props {
 	href: string;
-	appearance?: 'filled' | 'neutral' | 'ghost';
 	size?: 'small' | 'regular';
 }
 
-const { href, appearance = 'filled', size = 'regular' } = Astro.props;
+const { href, size = 'regular' } = Astro.props;
 ---
 
-<a class:list={['button-link', `button-link-${appearance}`, `button-link-${size}`]} href={href}>
+<a class:list={['button-link', `button-link-${size}`]} href={href}>
 	<slot />
 </a>

@@ -5,8 +5,7 @@ type Platform = 'android' | 'linux' | 'windows';
 
 const defaultPlatformOrder: Platform[] = ['android', 'linux', 'windows'];
 const latestReleaseDownloadUrl = 'https://github.com/emberr-app/Emberr/releases/latest/download';
-const filledButtonClass = `button-link button-link-filled button-link-regular ${styles.cardButton}`;
-const neutralButtonClass = `button-link button-link-neutral button-link-regular ${styles.cardButton}`;
+const cardButtonClass = `button-link button-link-regular ${styles.cardButton}`;
 
 function detectVisitorPlatform(): Platform | null {
 	const userAgent = navigator.userAgent;
@@ -19,7 +18,7 @@ function detectVisitorPlatform(): Platform | null {
 function AndroidDownload() {
 	return (
 		<>
-			<a className={filledButtonClass} href={`${latestReleaseDownloadUrl}/Emberr-android.apk`}>
+			<a className={cardButtonClass} href={`${latestReleaseDownloadUrl}/Emberr-android.apk`}>
 				Download APK
 			</a>
 			<p className={styles.note}>Android may ask you to allow installing apps from your browser.</p>
@@ -48,7 +47,7 @@ function AndroidDownload() {
 function LinuxDownload() {
 	return (
 		<>
-			<a className={filledButtonClass} href={`${latestReleaseDownloadUrl}/emberr-x86_64.tar.gz`}>
+			<a className={cardButtonClass} href={`${latestReleaseDownloadUrl}/emberr-x86_64.tar.gz`}>
 				Download tarball
 			</a>
 			<p className={styles.note}>Recommended. Adds Emberr to your app menu, for your user only, with no root needed.</p>
@@ -58,7 +57,7 @@ function LinuxDownload() {
 			<div className={styles.option}>
 				<h4 className={styles.optionTitle}>AppImage</h4>
 				<p className={styles.note}>One file, nothing to install.</p>
-				<a className={neutralButtonClass} href={`${latestReleaseDownloadUrl}/Emberr-x86_64.AppImage`}>
+				<a className={cardButtonClass} href={`${latestReleaseDownloadUrl}/Emberr-x86_64.AppImage`}>
 					Download AppImage
 				</a>
 				<pre className={styles.commands}>
@@ -72,7 +71,7 @@ function LinuxDownload() {
 function WindowsDownload() {
 	return (
 		<>
-			<a className={filledButtonClass} href={`${latestReleaseDownloadUrl}/Emberr-Setup-x86_64.exe`}>
+			<a className={cardButtonClass} href={`${latestReleaseDownloadUrl}/Emberr-Setup-x86_64.exe`}>
 				Download installer
 			</a>
 			<p className={styles.note}>
