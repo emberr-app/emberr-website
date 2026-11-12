@@ -20,35 +20,25 @@ import TextLink from './TextLink.astro';
 
 <style>
 	.downloads {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
 		padding-block: 80px;
-		text-align: center;
 	}
 
 	.downloads-summary {
-		max-width: 30rem;
+		max-width: 32rem;
 		margin-top: 20px;
-		color: var(--color-text-muted);
-		line-height: 1.65;
+		color: var(--color-text-secondary);
 	}
 
 	.downloads-links {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
 		gap: 4px 28px;
 		margin-top: 24px;
 	}
 
 	@media (min-width: 960px) {
 		.downloads {
-			padding-block: 120px 140px;
-		}
-
-		.downloads-summary {
-			font-size: 1.0625rem;
+			padding-block: 120px;
 		}
 	}
 </style>

@@ -82,13 +82,13 @@ const footerGroups: FooterGroup[] = [
 
 <style>
 	.site-footer {
-		--color-text: var(--color-on-charcoal);
-		--color-text-muted: var(--color-on-charcoal-muted);
-		--color-primary: #ffffff;
-		--color-on-primary: #111111;
-		--bar-border: rgba(255, 255, 255, 0.12);
-		background-color: var(--color-charcoal);
+		--color-text: var(--color-on-inverse);
+		--color-text-muted: var(--color-on-inverse-muted);
+		--color-ivory-button-border: transparent;
+		border-top: 1px solid var(--color-inverse-border);
+		background-color: var(--color-inverse);
 		color: var(--color-text);
+		font-family: var(--font-sans);
 	}
 
 	.footer-content {
@@ -98,18 +98,17 @@ const footerGroups: FooterGroup[] = [
 	.footer-closing {
 		display: flex;
 		flex-direction: column;
-		align-items: center;
-		gap: 28px;
+		align-items: flex-start;
+		gap: 32px;
 		padding-bottom: 72px;
-		border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-		text-align: center;
+		border-bottom: 1px solid var(--color-inverse-border);
 	}
 
 	.footer-closing-title {
 		max-width: 14em;
-		font-size: clamp(2.25rem, 5vw, 3.5rem);
-		line-height: 1;
-		letter-spacing: -0.05em;
+		font-family: var(--font-serif);
+		font-size: clamp(2.25rem, 5vw, 4.25rem);
+		line-height: 1.1;
 		text-wrap: balance;
 	}
 
@@ -124,8 +123,10 @@ const footerGroups: FooterGroup[] = [
 		display: inline-flex;
 		align-items: center;
 		gap: 10px;
-		font-weight: 500;
-		letter-spacing: -0.02em;
+		font-size: 0.8125rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
 		text-decoration: none;
 	}
 
@@ -142,14 +143,16 @@ const footerGroups: FooterGroup[] = [
 	}
 
 	.footer-heading {
-		font-size: 0.875rem;
-		font-weight: 500;
-		letter-spacing: 0;
+		font-size: 0.75rem;
+		font-weight: 700;
+		line-height: 1.4;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
 	}
 
 	.footer-links {
 		display: grid;
-		gap: 10px;
+		gap: 8px;
 		margin: 16px 0 0;
 		padding: 0;
 		list-style: none;
@@ -173,7 +176,7 @@ const footerGroups: FooterGroup[] = [
 		gap: 8px 24px;
 		margin-top: 56px;
 		padding-top: 24px;
-		border-top: 1px solid rgba(255, 255, 255, 0.1);
+		border-top: 1px solid var(--color-inverse-border);
 		color: var(--color-text-muted);
 		font-size: 0.8125rem;
 	}
@@ -192,6 +195,12 @@ const footerGroups: FooterGroup[] = [
 	@media (min-width: 960px) {
 		.footer-content {
 			padding-block: 120px 48px;
+		}
+
+		.footer-closing {
+			flex-direction: row;
+			align-items: flex-end;
+			justify-content: space-between;
 		}
 
 		.footer-columns {

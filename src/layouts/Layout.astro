@@ -25,8 +25,7 @@ const socialImageAlt = 'Emberr on an Android phone and a desktop computer';
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<link rel="apple-touch-icon" href="/favicon.png" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
-		<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff" />
-		<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#060504" />
+		<meta name="theme-color" content="#ffffff" />
 
 		<meta property="og:type" content="website" />
 		<meta property="og:site_name" content="Emberr" />
@@ -40,7 +39,9 @@ const socialImageAlt = 'Emberr on an Android phone and a desktop computer';
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:site" content="@emberr_app" />
 
-		<Font cssVariable="--font-inter" preload={[{ weight: 400 }]} />
+		<Font cssVariable="--font-lora" preload={[{ weight: 400 }]} />
+		<Font cssVariable="--font-inter" preload={[{ weight: 700 }]} />
+		<Font cssVariable="--font-jetbrains-mono" />
 		<meta name="generator" content={Astro.generator} />
 		<slot name="head" />
 	</head>

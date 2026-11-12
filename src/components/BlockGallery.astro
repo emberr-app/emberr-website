@@ -1,0 +1,125 @@
+---
+import IconTile from './IconTile.astro';
+import type { HighlightColorName, IconName } from './icons';
+
+interface BlockType {
+	name: string;
+	description: string;
+	icon: IconName;
+	color: HighlightColorName;
+}
+
+const blockTypes: BlockType[] = [
+	{ name: 'Text and headings', description: 'Paragraphs, headings, quotes and lists.', icon: 'text', color: 'blue' },
+	{ name: 'To-do lists', description: 'Checkboxes for tasks inside any note.', icon: 'checkbox', color: 'green' },
+	{ name: 'Toggles', description: 'Fold a section away until you need it.', icon: 'toggle', color: 'purple' },
+	{ name: 'Tables', description: 'Rows and columns, right in the note.', icon: 'table', color: 'orange' },
+	{ name: 'Databases', description: 'Rows with properties, in views you set up.', icon: 'database', color: 'yellow' },
+	{ name: 'Canvas', description: 'Draw freehand and connect ideas with arrows.', icon: 'canvas', color: 'pink' },
+	{ name: 'Code', description: 'Code blocks for snippets and commands.', icon: 'code', color: 'lime' },
+	{ name: 'Images and documents', description: 'Attach photos and files to any note.', icon: 'image', color: 'red' },
+	{ name: 'Voice notes', description: 'Record audio straight into a note.', icon: 'voice', color: 'orange' },
+	{ name: 'Links', description: 'Bookmark web pages and link notes together.', icon: 'link', color: 'blue' },
+	{ name: 'Logins', description: 'Usernames and passwords, with a password generator.', icon: 'key', color: 'yellow' },
+	{ name: 'Movies and shows', description: 'A watchlist with posters and details.', icon: 'film', color: 'red' }
+];
+---
+
+<section id="blocks" class="page-width blocks" aria-labelledby="blocks-title">
+	<div class="blocks-intro">
+		<h2 id="blocks-title" class="section-heading">
+			<span class="heading-strong">A block for everything.</span>
+			<span class="heading-soft">Mix them on one page.</span>
+		</h2>
+		<p class="blocks-summary">
+			Every note is built from blocks, so text, lists, tables, drawings and media can sit side by side.
+		</p>
+	</div>
+	<ul class="block-grid">
+		{
+			blockTypes.map((blockType) => (
+				<li class="block-item">
+					<IconTile icon={blockType.icon} color={blockType.color} />
+					<h3 class="block-name">{blockType.name}</h3>
+					<p class="block-description">{blockType.description}</p>
+				</li>
+			))
+		}
+	</ul>
+</section>
+
+<style>
+	.blocks {
+		padding-block: 80px;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.blocks-intro {
+		display: grid;
+		gap: 20px;
+	}
+
+	.blocks-summary {
+		max-width: 30rem;
+		color: var(--color-text-secondary);
+	}
+
+	.block-grid {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 32px 24px;
+		margin: 48px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.block-name {
+		margin-top: 16px;
+		font-family: var(--font-sans);
+		font-size: 1.125rem;
+		font-weight: 500;
+		line-height: 1.3;
+		letter-spacing: -0.005em;
+	}
+
+	.block-description {
+		margin-top: 6px;
+		color: var(--color-text-secondary);
+		font-size: 1rem;
+	}
+
+	@media (min-width: 520px) {
+		.block-grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 768px) {
+		.block-grid {
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+		}
+	}
+
+	@media (min-width: 960px) {
+		.blocks {
+			padding-block: 120px;
+		}
+
+		.blocks-intro {
+			grid-template-columns: 1.2fr 0.8fr;
+			align-items: end;
+			gap: 76px;
+		}
+
+		.block-grid {
+			margin-top: 64px;
+			gap: 48px 32px;
+		}
+	}
+
+	@media (min-width: 1100px) {
+		.block-grid {
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+		}
+	}
+</style>

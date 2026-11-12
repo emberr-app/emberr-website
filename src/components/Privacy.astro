@@ -1,17 +1,41 @@
 ---
+import IconTile from './IconTile.astro';
+import type { HighlightColorName, IconName } from './icons';
 import TextLink from './TextLink.astro';
 
-const privacyPromises: string[] = [
-	'Emberr has no accounts (yet), no analytics, no ads and no tracking.',
-	'Your notes, tasks, reminders, attachments and chats are stored only on your device.',
-	'Nothing is sent to me (the developer) or to any server I run, except movie and show searches, which pass through a small proxy (see the privacy policy). I have no way to see your notes.',
-	'Emberr only connects to the internet for features you turn on or use, listed in the privacy policy.',
-	'AI features are disabled by default. Nothing related to AI is downloaded or sent until you turn them on.'
+interface PrivacyPromise {
+	text: string;
+	icon: IconName;
+	color: HighlightColorName;
+}
+
+const privacyPromises: PrivacyPromise[] = [
+	{ text: 'Emberr has no accounts (yet), no analytics, no ads and no tracking.', icon: 'shield', color: 'green' },
+	{
+		text: 'Your notes, tasks, reminders, attachments and chats are stored only on your device.',
+		icon: 'phone',
+		color: 'blue'
+	},
+	{
+		text: 'Nothing is sent to me (the developer) or to any server I run, except movie and show searches, which pass through a small proxy (see the privacy policy). I have no way to see your notes.',
+		icon: 'eyeOff',
+		color: 'purple'
+	},
+	{
+		text: 'Emberr only connects to the internet for features you turn on or use, listed in the privacy policy.',
+		icon: 'wifi',
+		color: 'orange'
+	},
+	{
+		text: 'AI features are disabled by default. Nothing related to AI is downloaded or sent until you turn them on.',
+		icon: 'sparkle',
+		color: 'yellow'
+	}
 ];
 ---
 
 <section id="privacy" class="page-width privacy" aria-labelledby="privacy-title">
-	<div class="glass-strong privacy-panel">
+	<div class="privacy-panel">
 		<div class="privacy-intro">
 			<h2 id="privacy-title" class="section-heading">
 				<span class="heading-strong">Your notes stay yours.</span>
@@ -21,7 +45,14 @@ const privacyPromises: string[] = [
 			<TextLink href="/privacy">Read the full privacy policy</TextLink>
 		</div>
 		<ul class="privacy-list">
-			{privacyPromises.map((promise) => <li class="privacy-item">{promise}</li>)}
+			{
+				privacyPromises.map((promise) => (
+					<li class="privacy-item">
+						<IconTile icon={promise.icon} color={promise.color} size="small" />
+						<span>{promise.text}</span>
+					</li>
+				))
+			}
 		</ul>
 	</div>
 </section>
@@ -35,14 +66,14 @@ const privacyPromises: string[] = [
 		display: grid;
 		grid-template-columns: 1fr;
 		gap: 32px;
-		padding: 32px 22px;
+		padding: 32px 20px;
 		border-radius: 24px;
+		background-color: var(--color-card);
 	}
 
 	.privacy-summary {
 		margin: 20px 0 8px;
-		color: var(--color-text-muted);
-		line-height: 1.65;
+		color: var(--color-text-secondary);
 	}
 
 	.privacy-list {
@@ -52,10 +83,11 @@ const privacyPromises: string[] = [
 	}
 
 	.privacy-item {
+		display: flex;
+		align-items: flex-start;
+		gap: 16px;
 		padding-block: 16px;
-		border-bottom: 1px solid var(--color-border);
-		color: var(--color-text-muted);
-		line-height: 1.6;
+		border-bottom: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
 	}
 
 	.privacy-item:first-child {
@@ -74,13 +106,8 @@ const privacyPromises: string[] = [
 
 		.privacy-panel {
 			grid-template-columns: 0.9fr 1.1fr;
-			gap: 64px;
-			padding: 56px;
-			border-radius: 32px;
-		}
-
-		.privacy-summary {
-			font-size: 1.0625rem;
+			gap: 76px;
+			padding: 64px;
 		}
 	}
 </style>

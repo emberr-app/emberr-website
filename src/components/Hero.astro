@@ -1,93 +1,121 @@
 ---
 import ButtonLink from './ButtonLink.astro';
+import IconTile from './IconTile.astro';
+import type { HighlightColorName, IconName } from './icons';
+import TextLink from './TextLink.astro';
+
+interface HeroHighlight {
+	label: string;
+	icon: IconName;
+	color: HighlightColorName;
+}
+
+const heroHighlights: HeroHighlight[] = [
+	{ label: 'Notes', icon: 'document', color: 'purple' },
+	{ label: 'Tasks', icon: 'checkbox', color: 'green' },
+	{ label: 'Calendar', icon: 'calendar', color: 'orange' },
+	{ label: 'Reminders', icon: 'bell', color: 'yellow' }
+];
 ---
 
-<section class="hero" aria-labelledby="hero-title">
-	<div class="page-width hero-content">
-		<p class="pill hero-badge rise-in" style="animation-delay: 0.05s">Beta · Free and open source</p>
+<section class="page-width hero" aria-labelledby="hero-title">
+	<div class="hero-heading-column">
+		<p class="eyebrow hero-badge rise-in" style="animation-delay: 0.05s">Beta · Free and open source</p>
 		<h1 id="hero-title" class="hero-title rise-in" style="animation-delay: 0.16s">
 			<span class="heading-strong">Emberr</span>
 			<span class="heading-soft">Private Workspace</span>
 		</h1>
-		<p class="hero-summary rise-in" style="animation-delay: 0.3s">
+		<ul class="hero-highlights rise-in" style="animation-delay: 0.24s">
+			{
+				heroHighlights.map((highlight) => (
+					<li class="hero-highlight">
+						<IconTile icon={highlight.icon} color={highlight.color} size="small" />
+						<span>{highlight.label}</span>
+					</li>
+				))
+			}
+		</ul>
+	</div>
+	<div class="hero-body-column rise-in" style="animation-delay: 0.3s">
+		<p class="hero-summary">
 			Notes, tasks, a calendar and reminders in one app. Your data stays on your device unless you choose
 			otherwise.
 		</p>
-		<div class="hero-actions rise-in" style="animation-delay: 0.44s">
-			<ButtonLink href="#download">Download</ButtonLink>
-			<ButtonLink href="https://github.com/emberr-app/Emberr">View on GitHub</ButtonLink>
+		<div class="hero-actions">
+			<ButtonLink href="#download" variant="accent">Download</ButtonLink>
+			<TextLink href="https://github.com/emberr-app/Emberr">View on GitHub</TextLink>
 		</div>
-		<p class="hero-platforms rise-in" style="animation-delay: 0.58s">Android · Linux · Windows</p>
+		<p class="hero-platforms">Android · Linux · Windows</p>
 	</div>
 </section>
 
 <style>
 	.hero {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		min-height: max(640px, 100svh);
-		padding-block: 96px 40px;
-	}
-
-	.hero-content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 32px;
+		padding-block: 64px 48px;
 	}
 
 	.hero-badge {
-		display: inline-flex;
-		align-items: center;
-		height: 36px;
-		margin-bottom: 36px;
-		padding-inline: 16px;
-		border-radius: 9999px;
-		color: var(--color-text-muted);
-		font-size: 0.8125rem;
+		margin-bottom: 24px;
+		color: var(--color-text-secondary);
 	}
 
 	.hero-title {
-		font-size: clamp(2.5rem, 10vw, 3rem);
-		line-height: 1.02;
-		letter-spacing: -0.035em;
+		font-family: var(--font-sans);
+		font-size: clamp(2.75rem, 11vw, 3.8125rem);
+		font-weight: 700;
+		line-height: 1.1;
+		letter-spacing: -0.002em;
+	}
+
+	.hero-highlights {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px 24px;
+		margin: 32px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.hero-highlight {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		font-family: var(--font-sans);
+		font-size: 0.9375rem;
+		font-weight: 500;
+		letter-spacing: -0.005em;
 	}
 
 	.hero-summary {
 		max-width: 30rem;
-		margin-top: 28px;
-		color: var(--color-text-muted);
-		line-height: 1.65;
 		text-wrap: pretty;
 	}
 
 	.hero-actions {
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
-		gap: 12px;
-		margin-top: 40px;
+		align-items: center;
+		gap: 12px 24px;
+		margin-top: 32px;
 	}
 
 	.hero-platforms {
 		margin-top: 24px;
-		color: color-mix(in srgb, var(--color-text) 80%, transparent);
+		color: var(--color-text-secondary);
+		font-family: var(--font-sans);
 		font-size: 0.75rem;
 		letter-spacing: 0.04em;
-		text-shadow:
-			0 0 3px var(--color-background),
-			0 0 8px var(--color-background),
-			0 0 14px var(--color-background);
 	}
 
-	@media (min-width: 640px) {
-		.hero-title {
-			font-size: clamp(3rem, 5.6vw, 4.75rem);
-		}
-
-		.hero-summary {
-			font-size: 1.0625rem;
+	@media (min-width: 960px) {
+		.hero {
+			grid-template-columns: 1.2fr 0.8fr;
+			align-items: end;
+			gap: 76px;
+			padding-block: 120px 76px;
 		}
 	}
 </style>

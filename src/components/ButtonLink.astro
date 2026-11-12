@@ -2,11 +2,12 @@
 interface Props {
 	href: string;
 	size?: 'small' | 'regular';
+	variant?: 'accent' | 'ivory' | 'outline';
 }
 
-const { href, size = 'regular' } = Astro.props;
+const { href, size = 'regular', variant = 'ivory' } = Astro.props;
 ---
 
-<a class:list={['button-link', `button-link-${size}`]} href={href}>
+<a class:list={['button-link', `button-link-${size}`, `button-link-${variant}`]} href={href}>
 	<slot />
 </a>

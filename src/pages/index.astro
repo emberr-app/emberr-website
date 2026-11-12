@@ -1,8 +1,9 @@
 ---
 import emberrIcon from '../assets/emberr-icon.png';
 import screenshots from '../assets/screenshots.png';
+import AppFacts from '../components/AppFacts.astro';
+import BlockGallery from '../components/BlockGallery.astro';
 import BottomStretch from '../components/BottomStretch.astro';
-import DitherBackground from '../components/DitherBackground.astro';
 import Downloads from '../components/Downloads.astro';
 import FeatureTiles from '../components/FeatureTiles.astro';
 import Hero from '../components/Hero.astro';
@@ -45,11 +46,12 @@ const softwareApplicationData = {
 
 <Layout title={pageTitle} description={pageDescription}>
 	<script is:inline slot="head" type="application/ld+json" set:html={JSON.stringify(softwareApplicationData)} />
-	<DitherBackground strongAtTop />
 	<SiteHeader />
 	<main>
 		<Hero />
 		<ProductShowcase />
+		<AppFacts />
+		<BlockGallery />
 		<FeatureTiles />
 		<Privacy />
 		<Downloads />

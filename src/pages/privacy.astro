@@ -1,6 +1,5 @@
 ---
 import BottomStretch from '../components/BottomStretch.astro';
-import DitherBackground from '../components/DitherBackground.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import { Content as PrivacyPolicy } from '../documents/privacy-policy.md';
@@ -12,10 +11,9 @@ const pageDescription =
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
-	<DitherBackground />
 	<SiteHeader />
 	<main class="page-width policy-page">
-		<article class="glass-strong policy">
+		<article class="policy">
 			<PrivacyPolicy />
 		</article>
 	</main>
@@ -25,31 +23,38 @@ const pageDescription =
 
 <style>
 	.policy-page {
-		padding-block: 104px 96px;
+		padding-block: 48px 80px;
 	}
 
 	.policy {
 		max-width: 52rem;
 		margin-inline: auto;
-		padding: 32px 22px;
+		padding: 32px 20px;
+		border: 1px solid var(--color-border);
 		border-radius: 24px;
+		background-color: var(--color-card);
 	}
 
 	@media (min-width: 768px) {
+		.policy-page {
+			padding-block: 76px 120px;
+		}
+
 		.policy {
-			padding: 56px;
-			border-radius: 32px;
+			padding: 64px;
 		}
 	}
 
 	.policy :global(h1) {
-		font-size: clamp(2rem, 6vw, 3rem);
-		letter-spacing: -0.02em;
+		font-size: clamp(2.25rem, 6vw, 4.25rem);
 	}
 
 	.policy :global(h2) {
 		margin-top: 48px;
-		font-size: 1.375rem;
+		font-family: var(--font-sans);
+		font-size: 1.5rem;
+		font-weight: 500;
+		line-height: 1.3;
 	}
 
 	.policy :global(p),
@@ -61,7 +66,7 @@ const pageDescription =
 	.policy :global(p),
 	.policy :global(li),
 	.policy :global(td) {
-		color: var(--color-text-muted);
+		color: var(--color-text-secondary);
 	}
 
 	.policy :global(ul) {
@@ -80,14 +85,15 @@ const pageDescription =
 	.policy :global(code) {
 		padding: 2px 6px;
 		border-radius: 6px;
-		background-color: var(--color-surface);
-		font-size: 0.875em;
+		background-color: var(--color-oat);
+		font-family: var(--font-mono);
+		font-size: 0.8em;
 	}
 
 	.policy :global(table) {
 		width: 100%;
 		border-collapse: collapse;
-		font-size: 0.875rem;
+		font-size: 1rem;
 	}
 
 	.policy :global(th),
@@ -99,6 +105,8 @@ const pageDescription =
 	}
 
 	.policy :global(th) {
+		font-family: var(--font-sans);
+		font-size: 0.875rem;
 		font-weight: 500;
 	}
 </style>

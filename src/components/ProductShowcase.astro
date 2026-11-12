@@ -2,80 +2,128 @@
 import ScreenshotCrop from './ScreenshotCrop.astro';
 ---
 
-<section class="page-width showcase" aria-labelledby="showcase-title">
-	<div class="showcase-intro">
-		<h2 id="showcase-title" class="section-heading">
-			<span class="heading-strong">Every note, block by block.</span>
-			<span class="heading-soft">Every day, on every device.</span>
-		</h2>
-		<p class="showcase-summary">
-			Write in blocks, plan your days and keep your phone and desktop in sync, all without an account.
-		</p>
-	</div>
-	<div class="glass-strong showcase-window">
-		<div class="showcase-screen">
-			<ScreenshotCrop
-				alt="Emberr on desktop: the sidebar with Tasks, Bookmarks, favorites and folders, next to an open note called Start here with a mountain cover image."
-				cropLeft={350}
-				cropTop={347}
-				cropWidth={1260}
-				cropHeight={805}
-				sizes="(min-width: 1000px) 1330px, 135vw"
-			/>
+<section class="showcase" aria-labelledby="showcase-title">
+	<div class="showcase-card" data-showcase-card>
+		<div class="showcase-inner">
+			<div class="showcase-intro">
+				<h2 id="showcase-title" class="section-heading">
+					<span class="heading-strong">Every note, block by block.</span>
+					<span class="heading-soft">Every day, on every device.</span>
+				</h2>
+				<p class="showcase-summary">
+					Write in blocks, plan your days and keep your phone and desktop in sync, all without an account.
+				</p>
+			</div>
+			<div class="showcase-screen">
+				<ScreenshotCrop
+					alt="Emberr on desktop: the sidebar with Tasks, Bookmarks, favorites and folders, next to an open note called Start here with a mountain cover image."
+					cropLeft={350}
+					cropTop={347}
+					cropWidth={1260}
+					cropHeight={805}
+					sizes="(min-width: 1280px) 1150px, 100vw"
+				/>
+			</div>
 		</div>
 	</div>
 </section>
 
+<script>
+	const progressStartsAtViewportShare = 0.7;
+	const progressDistanceAsViewportShare = 0.5;
+
+	function startShowcaseGrow(showcaseCard: HTMLElement) {
+		let updateIsScheduled = false;
+
+		function updateGrowProgress() {
+			updateIsScheduled = false;
+			const viewportHeight = window.innerHeight;
+			const cardTop = showcaseCard.getBoundingClientRect().top;
+			const rawProgress =
+				(viewportHeight * progressStartsAtViewportShare - cardTop) /
+				(viewportHeight * progressDistanceAsViewportShare);
+			const growProgress = Math.min(Math.max(rawProgress, 0), 1);
+			showcaseCard.style.setProperty('--grow-progress', growProgress.toFixed(3));
+		}
+
+		function scheduleUpdate() {
+			if (updateIsScheduled) return;
+			updateIsScheduled = true;
+			requestAnimationFrame(updateGrowProgress);
+		}
+
+		window.addEventListener('scroll', scheduleUpdate, { passive: true });
+		window.addEventListener('resize', scheduleUpdate);
+		updateGrowProgress();
+	}
+
+	const showcaseCard = document.querySelector<HTMLElement>('[data-showcase-card]');
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	if (showcaseCard && !prefersReducedMotion) startShowcaseGrow(showcaseCard);
+</script>
+
 <style>
 	.showcase {
-		padding-block: 72px 96px;
+		padding-block: 24px 80px;
+	}
+
+	.showcase-card {
+		--grow-progress: 0;
+		--card-side-inset: calc(max(0px, (100% - var(--page-max-width)) / 2) + var(--page-gutter));
+		--card-inner-padding: 16px;
+		padding-block: 24px 16px;
+		background-color: var(--color-feature);
+		clip-path: inset(
+			0 calc(var(--card-side-inset) * (1 - var(--grow-progress)))
+				round calc(24px * (1 - var(--grow-progress)))
+		);
+	}
+
+	.showcase-inner {
+		max-width: var(--page-max-width);
+		margin-inline: auto;
+		padding-inline: calc(var(--page-gutter) + var(--card-inner-padding));
 	}
 
 	.showcase-intro {
-		max-width: 48rem;
-		margin-inline: auto;
-		text-align: center;
+		display: grid;
+		gap: 20px;
+		padding-inline: 8px;
 	}
 
 	.showcase-summary {
 		max-width: 30rem;
-		margin: 20px auto 0;
-		color: var(--color-text-muted);
-		line-height: 1.65;
+		color: var(--color-text-secondary);
 		text-wrap: pretty;
 	}
 
-	.showcase-window {
-		max-width: 960px;
-		margin: 56px auto 0;
-		padding: 6px;
-		border-radius: 18px;
-	}
-
 	.showcase-screen {
+		margin-top: 40px;
 		overflow: hidden;
-		border-radius: 13px;
+		border: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);
+		border-radius: 12px;
 		background-color: #000000;
-	}
-
-	@media (min-width: 640px) {
-		.showcase-summary {
-			font-size: 1.0625rem;
-		}
-
-		.showcase-window {
-			padding: 7px;
-			border-radius: 22px;
-		}
-
-		.showcase-screen {
-			border-radius: 16px;
-		}
 	}
 
 	@media (min-width: 960px) {
 		.showcase {
-			padding-block: 140px 120px;
+			padding-block: 24px 120px;
+		}
+
+		.showcase-card {
+			--card-inner-padding: 64px;
+			padding-block: 64px;
+		}
+
+		.showcase-intro {
+			grid-template-columns: 1.2fr 0.8fr;
+			align-items: end;
+			gap: 76px;
+			padding-inline: 0;
+		}
+
+		.showcase-screen {
+			margin-top: 56px;
 		}
 	}
 </style>
