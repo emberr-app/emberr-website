@@ -15,7 +15,6 @@ const { strongAtTop = false } = Astro.props;
 	const quietIntensity = 0.35;
 	const dotSizeInCssPixels = 1.25;
 	const maximumPixelRatio = 2;
-	const ignoredHeightChangeShare = 0.25;
 	const idleMotionSpeed = 0.35;
 	const springStiffness = 0.012;
 	const springDamping = 0.9;
@@ -206,30 +205,33 @@ const { strongAtTop = false } = Astro.props;
 			gl.uniform3fv(colorEndLocation, readColorVariable('--dither-color-end', [0.96, 0.53, 0.38]));
 		}
 
+		const backgroundLayer = canvas.parentElement ?? canvas;
 		let sizedForWidth = 0;
 		let sizedForHeight = 0;
+
+		function stableScreenHeight(): number {
+			return sizedForHeight || window.innerHeight;
+		}
 
 		function resizeCanvas() {
 			if (!gl) return;
 			const pixelRatio = Math.min(window.devicePixelRatio || 1, maximumPixelRatio);
 			const devicePixelsPerDot = Math.max(1, Math.round(dotSizeInCssPixels * pixelRatio));
-			sizedForWidth = window.innerWidth;
-			sizedForHeight = window.innerHeight;
+			sizedForWidth = backgroundLayer.clientWidth;
+			sizedForHeight = backgroundLayer.clientHeight;
 			canvas.width = Math.ceil((sizedForWidth * pixelRatio) / devicePixelsPerDot);
 			canvas.height = Math.ceil((sizedForHeight * pixelRatio) / devicePixelsPerDot);
 			gl.viewport(0, 0, canvas.width, canvas.height);
 			gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
 		}
 
-		function onlyAddressBarMoved(): boolean {
-			const sameWidth = window.innerWidth === sizedForWidth;
-			const smallHeightChange = Math.abs(window.innerHeight - sizedForHeight) < sizedForHeight * ignoredHeightChangeShare;
-			return sameWidth && smallHeightChange;
+		function backgroundSizeUnchanged(): boolean {
+			return backgroundLayer.clientWidth === sizedForWidth && backgroundLayer.clientHeight === sizedForHeight;
 		}
 
 		function currentIntensity(): number {
 			if (!strongAtTop) return quietIntensity;
-			const scrolledScreens = Math.min(1, window.scrollY / window.innerHeight);
+			const scrolledScreens = Math.min(1, window.scrollY / stableScreenHeight());
 			return 1 - (1 - quietIntensity) * scrolledScreens;
 		}
 
@@ -248,7 +250,7 @@ const { strongAtTop = false } = Astro.props;
 		}
 
 		function updateCloth() {
-			const targetScrollBend = window.scrollY / window.innerHeight;
+			const targetScrollBend = window.scrollY / stableScreenHeight();
 			springVelocity = (springVelocity + (targetScrollBend - springScrollBend) * springStiffness) * springDamping;
 			springScrollBend += springVelocity;
 			const targetSag = Math.max(-1, Math.min(1, springVelocity * sagFromSpeed));
@@ -285,7 +287,7 @@ const { strongAtTop = false } = Astro.props;
 		start();
 
 		window.addEventListener('resize', () => {
-			if (onlyAddressBarMoved()) return;
+			if (backgroundSizeUnchanged()) return;
 			resizeCanvas();
 			drawFrame(reducedMotion.matches ? 0 : lastTimeInSeconds);
 		});
@@ -313,8 +315,12 @@ const { strongAtTop = false } = Astro.props;
 <style>
 	.dither-background {
 		position: fixed;
-		inset: 0;
+		top: 0;
+		left: 0;
 		z-index: 0;
+		width: 100%;
+		height: 100vh;
+		height: 100lvh;
 		pointer-events: none;
 	}
 
