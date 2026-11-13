@@ -1,0 +1,169 @@
+---
+import TextLink from './TextLink.astro';
+
+interface Question {
+	question: string;
+	answer: string;
+}
+
+const questions: Question[] = [
+	{
+		question: 'Is Emberr free?',
+		answer: 'Yes. Emberr is free and open source under the GNU AGPL-3.0 license. It has no ads and no tracking.'
+	},
+	{
+		question: 'Do I need an account?',
+		answer: 'No. There is nothing to sign up for. Install Emberr and start writing.'
+	},
+	{
+		question: 'Where is my data stored?',
+		answer:
+			'On your device. On Android it lives in the app’s private storage, in an encrypted database. On Linux and Windows it lives in the .emberr folder in your home folder.'
+	},
+	{
+		question: 'Is there an iPhone or Mac version?',
+		answer: 'Not yet. Emberr runs on Android, Linux and Windows for now.'
+	},
+	{
+		question: 'How does sync work?',
+		answer:
+			'Your phone and desktop can sync directly over your own network, encrypted and signed even on public Wi-Fi. Or you can sync through your own WebDAV server, and your data is encrypted on your device before it is uploaded. No Emberr server sits in between.'
+	},
+	{
+		question: 'Can I import my notes from Notion?',
+		answer:
+			'Not directly yet. Emberr imports Markdown files and Obsidian vaults. Notion can export your pages as Markdown, and Emberr can import those files.'
+	}
+];
+---
+
+<section id="faq" class="page-width faq" aria-labelledby="faq-title">
+	<div class="faq-intro">
+		<h2 id="faq-title" class="section-heading">
+			<span class="heading-strong">Questions?</span>
+			<span class="heading-soft">Short answers.</span>
+		</h2>
+		<p class="faq-summary">Can’t find your answer here? Ask on Reddit or open an issue on GitHub.</p>
+		<div class="faq-links">
+			<TextLink href="https://www.reddit.com/r/Emberr/">Ask on Reddit</TextLink>
+			<TextLink href="https://github.com/emberr-app/Emberr/issues">Open an issue</TextLink>
+		</div>
+	</div>
+	<div class="faq-list">
+		{
+			questions.map((item) => (
+				<details class="faq-item">
+					<summary class="faq-question">
+						<span>{item.question}</span>
+						<span class="faq-toggle" aria-hidden="true" />
+					</summary>
+					<p class="faq-answer">{item.answer}</p>
+				</details>
+			))
+		}
+	</div>
+</section>
+
+<style>
+	.faq {
+		display: grid;
+		grid-template-columns: 1fr;
+		gap: 40px;
+		padding-block: 80px;
+		border-top: 1px solid var(--color-border);
+	}
+
+	.faq-summary {
+		max-width: 30rem;
+		margin-top: 20px;
+		color: var(--color-text-secondary);
+	}
+
+	.faq-links {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 4px 28px;
+		margin-top: 8px;
+	}
+
+	.faq-item {
+		border-bottom: 1px solid var(--color-border);
+	}
+
+	.faq-item:first-child {
+		border-top: 1px solid var(--color-border);
+	}
+
+	.faq-question {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 24px;
+		padding-block: 22px;
+		font-family: var(--font-sans);
+		font-size: 1.125rem;
+		font-weight: 500;
+		line-height: 1.35;
+		letter-spacing: -0.005em;
+		list-style: none;
+		cursor: pointer;
+	}
+
+	.faq-question::-webkit-details-marker {
+		display: none;
+	}
+
+	.faq-toggle {
+		position: relative;
+		flex-shrink: 0;
+		width: 14px;
+		height: 14px;
+	}
+
+	.faq-toggle::before,
+	.faq-toggle::after {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 0;
+		width: 100%;
+		height: 1.5px;
+		margin-top: -0.75px;
+		border-radius: 1px;
+		background-color: currentColor;
+		transition: transform 200ms ease;
+	}
+
+	.faq-toggle::after {
+		transform: rotate(90deg);
+	}
+
+	.faq-item[open] .faq-toggle::after {
+		transform: rotate(0deg);
+	}
+
+	.faq-answer {
+		max-width: 38rem;
+		padding-bottom: 24px;
+		color: var(--color-text-secondary);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.faq-toggle::before,
+		.faq-toggle::after {
+			transition: none;
+		}
+	}
+
+	@media (min-width: 960px) {
+		.faq {
+			grid-template-columns: 0.9fr 1.1fr;
+			gap: 76px;
+			padding-block: 120px;
+		}
+
+		.faq-question {
+			font-size: 1.25rem;
+		}
+	}
+</style>

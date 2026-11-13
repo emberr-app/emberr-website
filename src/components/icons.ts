@@ -20,8 +20,6 @@ import Moon from 'reicon/icons/Moon';
 import Notes from 'reicon/icons/Notes';
 import Palette from 'reicon/icons/Palette';
 import Refresh from 'reicon/icons/Refresh';
-import RowVertical from 'reicon/icons/RowVertical';
-import SearchZoomIn from 'reicon/icons/SearchZoomIn';
 import Shapes from 'reicon/icons/Shapes';
 import ShieldCheck from 'reicon/icons/ShieldCheck';
 import Sun from 'reicon/icons/Sun';
@@ -54,8 +52,6 @@ const reiconIcons = {
 	eyeOff: EyeClosed,
 	wifi: Wifi,
 	globe: Globe,
-	columns: RowVertical,
-	scale: SearchZoomIn,
 	import: Import,
 	bell: Bell,
 	notes: Notes,

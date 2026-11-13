@@ -1,31 +1,40 @@
 # Emberr
 
-> Emberr: Private Workspace is a free, open-source (GNU AGPL-3.0), offline-first notes, tasks, calendar and reminder app for Android, Linux and Windows. Your data stays on your device unless you choose otherwise. Emberr is in beta.
+> Emberr: Private Workspace is a free, open-source (GNU AGPL-3.0), offline-first notes, tasks, calendar and reminder app for Android, Linux and Windows. It works offline, needs no account and keeps your data on your device. Emberr is in beta.
+
+## At a glance
+
+- 20+ block types
+- 13 color themes
+- 18 languages
+- 11 home screen widgets on Android
+- 0 trackers or ads
 
 ## Features
 
-- Block editor: build notes from blocks: checklists, tables, databases, canvases, logins with a password generator, a movie and show watchlist, and more. Attach images, documents and voice notes to any note.
-- Daily notes and calendar: every day gets its own page for your thoughts and tasks. A built-in calendar and reminders, with all-day and repeating events you can drag to move or resize.
+- Block editor: build notes from more than 20 blocks: checklists, tables, databases, canvases, logins with a password generator, a movie and show watchlist, and more. Attach images, documents and voice notes, or start from a template.
+- Daily notes and calendar: every day gets its own page for your thoughts and tasks. A built-in calendar with reminders, color categories, and all-day and repeating events you can drag to move or resize.
 - Spaces and people: keep work, personal and school apart in separate spaces. Keep track of people, their details and the tasks you assign them, imported from your phone or a .vcf file.
 - Sync on your terms: sync your phone and desktop over your own network, encrypted and signed even on public Wi-Fi. Or self-host on your own WebDAV server, encrypted on your device before upload.
-- Make it yours: 13 color themes, paper texture, interface scale from 80% to 200% and 18 languages. Split view on desktop with up to 4 notes side by side. Home screen widgets and App Lock on Android.
-- AI only if you want it: AI is off by default. Turn it on to run a local model on your device, or use your own API key.
-- Import notes from Markdown and Obsidian.
+- Make it yours: 13 color themes, or your wallpaper's colors on Android, plus paper texture, interface scale from 80% to 200% and 18 languages. Split view on desktop with up to 4 notes side by side. 11 home screen widgets and App Lock on Android.
+- AI only if you want it: AI is off by default. Turn it on to chat with your notes using a local model on your device, or your own OpenAI, Anthropic or Gemini key.
+- Import from Markdown and Obsidian, and export to Markdown or PDF at any time.
+- On Linux and Windows, Emberr updates itself from inside the app.
 
 ## Blocks
 
-- Text and headings: paragraphs, headings, quotes and lists.
+- Text and headings: paragraphs, headings, quotes, callouts and lists.
 - To-do lists: checkboxes for tasks inside any note.
 - Toggles: fold a section away until you need it.
-- Tables: rows and columns, right in the note.
-- Databases: rows with properties, in views you set up.
+- Tables: rows and columns with cell colors, right in the note.
+- Databases: table, board and gallery views, with filters and formulas.
 - Canvas: draw freehand and connect ideas with arrows.
 - Code: code blocks for snippets and commands.
 - Images and documents: attach photos and files to any note.
 - Voice notes: record audio straight into a note.
 - Links: bookmark web pages and link notes together.
 - Logins: usernames and passwords, with a password generator.
-- Movies and shows: a watchlist with posters and details.
+- Movies and shows: a watchlist with posters, cast and where to watch.
 
 ## Privacy
 
@@ -36,11 +45,20 @@
 - AI features are disabled by default. Nothing related to AI is downloaded or sent until you turn them on.
 - [Full privacy policy](https://emberr.app/privacy)
 
+## FAQ
+
+- Is Emberr free? Yes. Emberr is free and open source under the GNU AGPL-3.0 license. It has no ads and no tracking.
+- Do I need an account? No. There is nothing to sign up for. Install Emberr and start writing.
+- Where is my data stored? On your device. On Android it lives in the app's private storage, in an encrypted database. On Linux and Windows it lives in the .emberr folder in your home folder.
+- Is there an iPhone or Mac version? Not yet. Emberr runs on Android, Linux and Windows for now.
+- How does sync work? Your phone and desktop can sync directly over your own network, encrypted and signed even on public Wi-Fi. Or you can sync through your own WebDAV server, and your data is encrypted on your device before it is uploaded. No Emberr server sits in between.
+- Can I import my notes from Notion? Not directly yet. Emberr imports Markdown files and Obsidian vaults. Notion can export your pages as Markdown, and Emberr can import those files.
+
 ## Download
 
-- [Android APK](https://github.com/emberr-app/Emberr/releases/latest/download/Emberr-android.apk)
+- [Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/emberr-app/Emberr): automatic updates on Android from the GitHub releases. The link opens Obtainium with Emberr already added.
 - [Google Play closed testing](https://groups.google.com/g/emberr-testers): join the Emberr testers group, then install Emberr: Private Workspace from Google Play using the link in the group.
-- [Obtainium](https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/emberr-app/Emberr): automatic updates on Android from the GitHub releases.
+- [Android APK](https://github.com/emberr-app/Emberr/releases/latest/download/Emberr-android.apk)
 - [Linux tarball](https://github.com/emberr-app/Emberr/releases/latest/download/emberr-x86_64.tar.gz): recommended for Linux. Adds Emberr to your app menu, for your user only, with no root needed.
 - [Linux AppImage](https://github.com/emberr-app/Emberr/releases/latest/download/Emberr-x86_64.AppImage): one file, nothing to install.
 - [Windows installer](https://github.com/emberr-app/Emberr/releases/latest/download/Emberr-Setup-x86_64.exe): not code-signed yet, so Windows may show "Windows protected your PC". Click More info, then Run anyway.
