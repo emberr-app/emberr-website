@@ -1,6 +1,7 @@
 ---
 import DownloadCards from './DownloadCards';
 import TextLink from './TextLink.astro';
+import { siteLinks } from '../siteLinks';
 ---
 
 <section id="download" class="page-width downloads" aria-labelledby="download-title">
@@ -9,13 +10,13 @@ import TextLink from './TextLink.astro';
 		<span class="heading-soft">On Android, Linux and Windows.</span>
 	</h2>
 	<p class="downloads-summary">
-		Emberr is in beta. It’s free and open source, so expect some rough edges and tell us what could be better.
+		Emberr is in beta. It's free and open source, so expect some rough edges and tell us what could be better.
 		On Linux and Windows, Emberr updates itself from inside the app.
 	</p>
 	<DownloadCards client:idle />
 	<div class="downloads-links">
-		<TextLink href="https://github.com/emberr-app/Emberr/releases">All releases on GitHub</TextLink>
-		<TextLink href="https://github.com/emberr-app/Emberr#build-from-source">Build from source</TextLink>
+		<TextLink href={siteLinks.releases}>All releases on GitHub</TextLink>
+		<TextLink href={siteLinks.buildFromSource}>Build from source</TextLink>
 	</div>
 </section>
 

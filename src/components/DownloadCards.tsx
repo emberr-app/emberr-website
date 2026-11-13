@@ -5,20 +5,20 @@ import Mobile from 'reicon/icons/Mobile';
 import Monitor from 'reicon/icons/Monitor';
 import TerminalSquare from 'reicon/icons/TerminalSquare';
 import type { HighlightColorName } from './icons';
+import { siteLinks } from '../siteLinks';
 
 type Platform = 'android' | 'linux' | 'windows';
 
 const defaultPlatformOrder: Platform[] = ['android', 'linux', 'windows'];
-const latestReleaseDownloadUrl = 'https://github.com/emberr-app/Emberr/releases/latest/download';
-const obtainiumAddEmberrUrl =
-	'https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/emberr-app/Emberr';
+const latestReleaseDownloadUrl = `${siteLinks.releases}/latest/download`;
+const obtainiumAddEmberrUrl = `https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/${siteLinks.github}`;
 const cardButtonClass = `button-link button-link-regular button-link-outline ${styles.cardButton}`;
 
 function detectVisitorPlatform(): Platform | null {
 	const userAgent = navigator.userAgent;
 	if (/Android/i.test(userAgent)) return 'android';
 	if (/Windows/i.test(userAgent)) return 'windows';
-	if (/Linux/i.test(userAgent) && !/CrOS/i.test(userAgent)) return 'linux';
+	if (/Linux/i.test(userAgent)) return 'linux';
 	return null;
 }
 
@@ -123,18 +123,21 @@ export default function DownloadCards() {
 
 	return (
 		<ul className={styles.grid}>
-			{platformOrder.map((platform) => (
-				<li key={platform} className={styles.card}>
-					<div className={styles.cardHeader}>
-						<div className={styles.cardName}>
-							<PlatformIcon icon={platformCards[platform].icon} color={platformCards[platform].color} />
-							<h3 className={styles.cardTitle}>{platformCards[platform].name}</h3>
+			{platformOrder.map((platform) => {
+				const card = platformCards[platform];
+				return (
+					<li key={platform} className={styles.card}>
+						<div className={styles.cardHeader}>
+							<div className={styles.cardName}>
+								<PlatformIcon icon={card.icon} color={card.color} />
+								<h3 className={styles.cardTitle}>{card.name}</h3>
+							</div>
+							{platform === visitorPlatform && <span className={styles.visitorBadge}>Your system</span>}
 						</div>
-						{platform === visitorPlatform && <span className={styles.visitorBadge}>Your system</span>}
-					</div>
-					{platformCards[platform].content}
-				</li>
-			))}
+						{card.content}
+					</li>
+				);
+			})}
 		</ul>
 	);
 }

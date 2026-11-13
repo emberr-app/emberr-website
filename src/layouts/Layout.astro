@@ -2,6 +2,7 @@
 import { Font } from 'astro:assets';
 import screenshots from '../assets/screenshots.png';
 import '../styles/global.css';
+import { browserBarColorByTheme, themeStorageKey } from '../theme';
 
 interface Props {
 	title: string;
@@ -25,17 +26,17 @@ const socialImageAlt = 'Emberr on an Android phone and a desktop computer';
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<link rel="apple-touch-icon" href="/favicon.png" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
-		<meta name="theme-color" content="#ffffff" />
-		<script is:inline>
+		<meta name="theme-color" content={browserBarColorByTheme.light} />
+		<script is:inline define:vars={{ themeStorageKey, browserBarColorByTheme }}>
 			(() => {
 				let savedTheme = null;
 				try {
-					savedTheme = localStorage.getItem('emberr-theme');
+					savedTheme = localStorage.getItem(themeStorageKey);
 				} catch {}
 				const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 				const theme = savedTheme === 'light' || savedTheme === 'dark' ? savedTheme : systemPrefersDark ? 'dark' : 'light';
 				document.documentElement.dataset.theme = theme;
-				document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#080808' : '#ffffff';
+				document.querySelector('meta[name="theme-color"]').content = browserBarColorByTheme[theme];
 			})();
 		</script>
 

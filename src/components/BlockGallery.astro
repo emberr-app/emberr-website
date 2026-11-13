@@ -26,12 +26,12 @@ const blockTypes: BlockType[] = [
 ---
 
 <section id="blocks" class="page-width blocks" aria-labelledby="blocks-title">
-	<div class="blocks-intro">
+	<div class="section-intro">
 		<h2 id="blocks-title" class="section-heading">
 			<span class="heading-strong">A block for everything.</span>
 			<span class="heading-soft">Mix them on one page.</span>
 		</h2>
-		<p class="blocks-summary">
+		<p class="section-summary">
 			Every note is built from blocks, so text, lists, tables, drawings and media can sit side by side.
 		</p>
 	</div>
@@ -52,16 +52,6 @@ const blockTypes: BlockType[] = [
 	.blocks {
 		padding-block: 80px;
 		border-top: 1px solid var(--color-border);
-	}
-
-	.blocks-intro {
-		display: grid;
-		gap: 20px;
-	}
-
-	.blocks-summary {
-		max-width: 30rem;
-		color: var(--color-text-secondary);
 	}
 
 	.block-grid {
@@ -103,12 +93,6 @@ const blockTypes: BlockType[] = [
 	@media (min-width: 960px) {
 		.blocks {
 			padding-block: 120px;
-		}
-
-		.blocks-intro {
-			grid-template-columns: 1.2fr 0.8fr;
-			align-items: end;
-			gap: 76px;
 		}
 
 		.block-grid {

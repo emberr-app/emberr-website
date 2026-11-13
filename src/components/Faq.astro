@@ -1,5 +1,6 @@
 ---
 import TextLink from './TextLink.astro';
+import { siteLinks } from '../siteLinks';
 
 interface Question {
 	question: string;
@@ -18,7 +19,7 @@ const questions: Question[] = [
 	{
 		question: 'Where is my data stored?',
 		answer:
-			'On your device. On Android it lives in the app’s private storage, in an encrypted database. On Linux and Windows it lives in the .emberr folder in your home folder.'
+			"On your device. On Android it lives in the app's private storage, in an encrypted database. On Linux and Windows it lives in the .emberr folder in your home folder."
 	},
 	{
 		question: 'Is there an iPhone or Mac version?',
@@ -43,10 +44,10 @@ const questions: Question[] = [
 			<span class="heading-strong">Questions?</span>
 			<span class="heading-soft">Short answers.</span>
 		</h2>
-		<p class="faq-summary">Can’t find your answer here? Ask on Reddit or open an issue on GitHub.</p>
+		<p class="section-summary faq-summary">Can't find your answer here? Ask on Reddit or open an issue on GitHub.</p>
 		<div class="faq-links">
-			<TextLink href="https://www.reddit.com/r/Emberr/">Ask on Reddit</TextLink>
-			<TextLink href="https://github.com/emberr-app/Emberr/issues">Open an issue</TextLink>
+			<TextLink href={siteLinks.reddit}>Ask on Reddit</TextLink>
+			<TextLink href={siteLinks.issues}>Open an issue</TextLink>
 		</div>
 	</div>
 	<div class="faq-list">
@@ -74,9 +75,7 @@ const questions: Question[] = [
 	}
 
 	.faq-summary {
-		max-width: 30rem;
 		margin-top: 20px;
-		color: var(--color-text-secondary);
 	}
 
 	.faq-links {

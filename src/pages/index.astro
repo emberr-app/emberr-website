@@ -13,6 +13,7 @@ import ProductShowcase from '../components/ProductShowcase.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import Layout from '../layouts/Layout.astro';
+import { siteLinks } from '../siteLinks';
 
 const pageTitle = 'Emberr: Private Workspace';
 const pageDescription =
@@ -22,26 +23,22 @@ const softwareApplicationData = {
 	'@context': 'https://schema.org',
 	'@type': 'SoftwareApplication',
 	name: 'Emberr',
-	alternateName: 'Emberr: Private Workspace',
+	alternateName: pageTitle,
 	description: pageDescription,
-	url: 'https://emberr.app/',
+	url: new URL('/', Astro.site).href,
 	applicationCategory: 'ProductivityApplication',
 	operatingSystem: 'Android, Linux, Windows',
 	isAccessibleForFree: true,
 	license: 'https://www.gnu.org/licenses/agpl-3.0.html',
 	image: new URL(emberrIcon.src, Astro.site).href,
 	screenshot: new URL(screenshots.src, Astro.site).href,
-	downloadUrl: 'https://github.com/emberr-app/Emberr/releases',
+	downloadUrl: siteLinks.releases,
 	author: {
 		'@type': 'Person',
 		name: 'Benny',
-		url: 'https://github.com/benny10ben'
+		url: siteLinks.developerProfile
 	},
-	sameAs: [
-		'https://github.com/emberr-app/Emberr',
-		'https://x.com/emberr_app',
-		'https://www.reddit.com/r/Emberr/'
-	]
+	sameAs: [siteLinks.github, siteLinks.x, siteLinks.reddit]
 };
 ---
 
