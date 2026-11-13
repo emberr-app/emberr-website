@@ -65,12 +65,12 @@ const features: Feature[] = [
 ---
 
 <section id="features" class="page-width features" aria-labelledby="features-title">
-	<div class="features-intro">
+	<div class="section-intro">
 		<h2 id="features-title" class="section-heading">
 			<span class="heading-strong">Everything in one place.</span>
 			<span class="heading-soft">Fully offline.</span>
 		</h2>
-		<p class="features-summary">Write, plan and keep it private, all in one app.</p>
+		<p class="section-summary">Write, plan and keep it private, all in one app.</p>
 	</div>
 	<ul class="feature-grid">
 		{
@@ -96,16 +96,6 @@ const features: Feature[] = [
 	.features {
 		padding-block: 80px;
 		border-top: 1px solid var(--color-border);
-	}
-
-	.features-intro {
-		display: grid;
-		gap: 20px;
-	}
-
-	.features-summary {
-		max-width: 30rem;
-		color: var(--color-text-secondary);
 	}
 
 	.feature-grid {
@@ -171,12 +161,6 @@ const features: Feature[] = [
 	@media (min-width: 960px) {
 		.features {
 			padding-block: 120px;
-		}
-
-		.features-intro {
-			grid-template-columns: 1.2fr 0.8fr;
-			align-items: end;
-			gap: 76px;
 		}
 
 		.feature-grid {

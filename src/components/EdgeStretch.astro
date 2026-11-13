@@ -41,7 +41,7 @@ const stripes: Stripe[] = [
 
 	function startEdgeStretch(topLayer: HTMLElement, bottomLayer: HTMLElement) {
 		const partsMovedByBottomPull = Array.from(document.querySelectorAll<HTMLElement>('main, footer'));
-		const partsMovedByTopPull = Array.from(document.querySelectorAll<HTMLElement>('header, main, footer'));
+		const allMovableParts = Array.from(document.querySelectorAll<HTMLElement>('header, main, footer'));
 		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
 		let rawPull = 0;
@@ -65,14 +65,15 @@ const stripes: Stripe[] = [
 		}
 
 		function stretchFromPull(pull: number): number {
-			const pullDistance = Math.abs(pull);
-			return Math.sign(pull) * maximumStretch * (1 - 1 / (1 + (pullDistance * pullResistance) / maximumStretch));
+			const resistedPull = (Math.abs(pull) * pullResistance) / maximumStretch;
+			const shareOfMaximum = 1 - 1 / (1 + resistedPull);
+			return Math.sign(pull) * maximumStretch * shareOfMaximum;
 		}
 
 		function applyStretch() {
 			const isMoving = Math.abs(stretch) > 0.5;
-			const movingParts = pulledEdge === 'top' ? partsMovedByTopPull : partsMovedByBottomPull;
-			for (const part of partsMovedByTopPull) {
+			const movingParts = pulledEdge === 'top' ? allMovableParts : partsMovedByBottomPull;
+			for (const part of allMovableParts) {
 				const partMoves = isMoving && movingParts.includes(part);
 				part.style.transform = partMoves ? `translate3d(0, ${-stretch}px, 0)` : '';
 				part.style.willChange = partMoves ? 'transform' : '';
@@ -171,10 +172,13 @@ const stripes: Stripe[] = [
 			{ passive: false }
 		);
 
-		window.addEventListener('touchend', () => {
+		function finishTouch() {
 			if (touchStartY !== null && isPulling) release();
 			touchStartY = null;
-		});
+		}
+
+		window.addEventListener('touchend', finishTouch);
+		window.addEventListener('touchcancel', finishTouch);
 	}
 
 	const topLayer = document.querySelector<HTMLElement>('[data-edge-stretch="top"]');
@@ -217,7 +221,7 @@ const stripes: Stripe[] = [
 	}
 
 	.stripe-blue {
-		fill: rgb(86, 112, 236);
+		fill: #5670ec;
 	}
 
 	.stripe-yellow {
@@ -229,6 +233,6 @@ const stripes: Stripe[] = [
 	}
 
 	.stripe-orange {
-		fill: rgb(232, 110, 72);
+		fill: #e86e48;
 	}
 </style>

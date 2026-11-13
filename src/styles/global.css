@@ -2,7 +2,6 @@
   color-scheme: light;
   --color-canvas: #ffffff;
   --color-card: #efefef;
-  --color-feature: #efefef;
   --color-oat: #d8d8d8;
   --color-text: #0d0d0d;
   --color-text-secondary: #474747;
@@ -35,7 +34,6 @@
   color-scheme: dark;
   --color-canvas: #080808;
   --color-card: #1e1e1e;
-  --color-feature: #1e1e1e;
   --color-oat: #363636;
   --color-text: #efefef;
   --color-text-secondary: #c7c7c7;
@@ -44,7 +42,6 @@
   --color-accent-hover: #d8d8d8;
   --color-on-accent: #0d0d0d;
   --color-inverse: #1e1e1e;
-  --color-inverse-border: #363636;
   --color-selection: rgba(239, 239, 239, 0.2);
   --color-header-background: rgba(8, 8, 8, 0.72);
   --paper-texture-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
@@ -166,6 +163,24 @@ img {
 .heading-soft {
   display: block;
   color: var(--color-text-soft);
+}
+
+.section-intro {
+  display: grid;
+  gap: 20px;
+}
+
+.section-summary {
+  max-width: 30rem;
+  color: var(--color-text-secondary);
+}
+
+@media (min-width: 960px) {
+  .section-intro {
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: end;
+    gap: 76px;
+  }
 }
 
 .eyebrow {

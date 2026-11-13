@@ -3,6 +3,7 @@ import ButtonLink from './ButtonLink.astro';
 import IconTile from './IconTile.astro';
 import type { HighlightColorName, IconName } from './icons';
 import TextLink from './TextLink.astro';
+import { siteLinks } from '../siteLinks';
 
 interface HeroHighlight {
 	label: string;
@@ -43,7 +44,7 @@ const heroHighlights: HeroHighlight[] = [
 		</p>
 		<div class="hero-actions">
 			<ButtonLink href="#download" variant="accent">Download</ButtonLink>
-			<TextLink href="https://github.com/emberr-app/Emberr">View on GitHub</TextLink>
+			<TextLink href={siteLinks.github}>View on GitHub</TextLink>
 		</div>
 		<p class="hero-platforms">Android · Linux · Windows</p>
 	</div>

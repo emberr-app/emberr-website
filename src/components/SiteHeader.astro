@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import emberrGhost from '../assets/emberr-ghost.png';
 import ButtonLink from './ButtonLink.astro';
 import { outlineIconMarkup } from './icons';
+import { siteLinks } from '../siteLinks';
 ---
 
 <header class="site-header">
@@ -16,7 +17,7 @@ import { outlineIconMarkup } from './icons';
 				<a class="nav-link" href="/#features">Features</a>
 				<a class="nav-link" href="/#privacy">Privacy</a>
 				<a class="nav-link" href="/#faq">FAQ</a>
-				<a class="nav-link" href="https://github.com/emberr-app/Emberr">GitHub</a>
+				<a class="nav-link" href={siteLinks.github}>GitHub</a>
 			</nav>
 			<button class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false" data-theme-toggle>
 				<svg class="theme-toggle-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={outlineIconMarkup('moon')} />
@@ -28,21 +29,19 @@ import { outlineIconMarkup } from './icons';
 </header>
 
 <script>
-	type Theme = 'light' | 'dark';
-
-	const themeStorageKey = 'emberr-theme';
+	import { browserBarColorByTheme, themeStorageKey, type Theme } from '../theme';
 
 	function currentTheme(): Theme {
 		return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
 	}
 
-	function showThemeOnToggle(themeToggle: HTMLButtonElement) {
+	function updateTogglePressedState(themeToggle: HTMLButtonElement) {
 		themeToggle.setAttribute('aria-pressed', String(currentTheme() === 'dark'));
 	}
 
 	function applyTheme(theme: Theme) {
 		document.documentElement.dataset.theme = theme;
-		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#080808' : '#ffffff');
+		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', browserBarColorByTheme[theme]);
 		try {
 			localStorage.setItem(themeStorageKey, theme);
 		} catch {}
@@ -50,10 +49,10 @@ import { outlineIconMarkup } from './icons';
 
 	const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
 	if (themeToggle) {
-		showThemeOnToggle(themeToggle);
+		updateTogglePressedState(themeToggle);
 		themeToggle.addEventListener('click', () => {
 			applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
-			showThemeOnToggle(themeToggle);
+			updateTogglePressedState(themeToggle);
 		});
 	}
 </script>

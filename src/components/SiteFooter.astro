@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import emberrIcon from '../assets/emberr-icon.png';
 import ButtonLink from './ButtonLink.astro';
+import { siteLinks } from '../siteLinks';
 
 interface FooterLink {
 	label: string;
@@ -26,18 +27,18 @@ const footerGroups: FooterGroup[] = [
 	{
 		title: 'Resources',
 		links: [
-			{ label: 'Releases', href: 'https://github.com/emberr-app/Emberr/releases' },
-			{ label: 'Source code', href: 'https://github.com/emberr-app/Emberr' },
+			{ label: 'Releases', href: siteLinks.releases },
+			{ label: 'Source code', href: siteLinks.github },
 			{ label: 'Privacy policy', href: '/privacy' }
 		]
 	},
 	{
 		title: 'Community',
 		links: [
-			{ label: 'Reddit', href: 'https://www.reddit.com/r/Emberr/' },
-			{ label: 'X', href: 'https://x.com/emberr_app' },
-			{ label: 'Issues', href: 'https://github.com/emberr-app/Emberr/issues' },
-			{ label: 'Contributing', href: 'https://github.com/emberr-app/Emberr/blob/main/CONTRIBUTING.md' }
+			{ label: 'Reddit', href: siteLinks.reddit },
+			{ label: 'X', href: siteLinks.x },
+			{ label: 'Issues', href: siteLinks.issues },
+			{ label: 'Contributing', href: siteLinks.contributing }
 		]
 	}
 ];
@@ -74,10 +75,10 @@ const footerGroups: FooterGroup[] = [
 		</div>
 		<div class="footer-bottom">
 			<p>
-				Licensed under the <a href="https://github.com/emberr-app/Emberr/blob/main/LICENSE">GNU AGPL-3.0</a>
+				Licensed under the <a href={siteLinks.license}>GNU AGPL-3.0</a>
 			</p>
 			<p>Icons by <a href="https://reicon.dev">Reicon</a>, based on Solar Icons</p>
-			<p>Made by <a href="https://github.com/benny10ben">Benny</a></p>
+			<p>Made by <a href={siteLinks.developerProfile}>Benny</a></p>
 		</div>
 	</div>
 </footer>
@@ -85,7 +86,7 @@ const footerGroups: FooterGroup[] = [
 <style>
 	.site-footer {
 		--color-text: var(--color-on-inverse);
-		--color-text-muted: var(--color-on-inverse-muted);
+		--color-text-secondary: var(--color-on-inverse-muted);
 		border-top: 1px solid var(--color-inverse-border);
 		background-color: var(--color-inverse);
 		color: var(--color-text);
@@ -138,7 +139,7 @@ const footerGroups: FooterGroup[] = [
 	.footer-tagline {
 		max-width: 20rem;
 		margin-top: 16px;
-		color: var(--color-text-muted);
+		color: var(--color-text-secondary);
 		font-size: 0.875rem;
 		line-height: 1.5;
 	}
@@ -160,7 +161,7 @@ const footerGroups: FooterGroup[] = [
 	}
 
 	.footer-links a {
-		color: var(--color-text-muted);
+		color: var(--color-text-secondary);
 		font-size: 0.875rem;
 		text-decoration: none;
 		transition: color 250ms ease;
@@ -178,7 +179,7 @@ const footerGroups: FooterGroup[] = [
 		margin-top: 56px;
 		padding-top: 24px;
 		border-top: 1px solid var(--color-inverse-border);
-		color: var(--color-text-muted);
+		color: var(--color-text-secondary);
 		font-size: 0.8125rem;
 	}
 

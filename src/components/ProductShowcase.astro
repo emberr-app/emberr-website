@@ -5,12 +5,12 @@ import ScreenshotCrop from './ScreenshotCrop.astro';
 <section class="showcase" aria-labelledby="showcase-title">
 	<div class="showcase-card" data-showcase-card>
 		<div class="showcase-inner">
-			<div class="showcase-intro">
+			<div class="section-intro showcase-intro">
 				<h2 id="showcase-title" class="section-heading">
 					<span class="heading-strong">Every note, block by block.</span>
 					<span class="heading-soft">Every day, on every device.</span>
 				</h2>
-				<p class="showcase-summary">
+				<p class="section-summary showcase-summary">
 					Build notes from blocks, plan each day on its own page, and sync your phone and desktop over your own
 					network. No account and no cloud in between.
 				</p>
@@ -73,7 +73,7 @@ import ScreenshotCrop from './ScreenshotCrop.astro';
 		--card-side-inset: calc(max(0px, (100% - var(--page-max-width)) / 2) + var(--page-gutter));
 		--card-inner-padding: 16px;
 		padding-block: 24px 16px;
-		background-color: var(--color-feature);
+		background-color: var(--color-card);
 		clip-path: inset(
 			0 calc(var(--card-side-inset) * (1 - var(--grow-progress)))
 				round calc(24px * (1 - var(--grow-progress)))
@@ -87,14 +87,10 @@ import ScreenshotCrop from './ScreenshotCrop.astro';
 	}
 
 	.showcase-intro {
-		display: grid;
-		gap: 20px;
 		padding-inline: 8px;
 	}
 
 	.showcase-summary {
-		max-width: 30rem;
-		color: var(--color-text-secondary);
 		text-wrap: pretty;
 	}
 
@@ -117,9 +113,6 @@ import ScreenshotCrop from './ScreenshotCrop.astro';
 		}
 
 		.showcase-intro {
-			grid-template-columns: 1.2fr 0.8fr;
-			align-items: end;
-			gap: 76px;
 			padding-inline: 0;
 		}
 
