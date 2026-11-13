@@ -23,7 +23,7 @@ const heroHighlights: HeroHighlight[] = [
 		<p class="eyebrow hero-badge rise-in" style="animation-delay: 0.05s">Beta · Free and open source</p>
 		<h1 id="hero-title" class="hero-title rise-in" style="animation-delay: 0.16s">
 			<span class="heading-strong">Emberr</span>
-			<span class="heading-soft">Private Workspace</span>
+			<span class="heading-soft" data-typing-line>Private Workspace</span>
 		</h1>
 		<ul class="hero-highlights rise-in" style="animation-delay: 0.24s">
 			{
@@ -49,6 +49,44 @@ const heroHighlights: HeroHighlight[] = [
 	</div>
 </section>
 
+<script>
+	const typingStartDelayInMilliseconds = 700;
+	const delayBetweenLettersInMilliseconds = 75;
+
+	function startTyping(typingLine: HTMLElement) {
+		const letters = Array.from(typingLine.textContent ?? '').map((character) => {
+			const letter = document.createElement('span');
+			letter.className = 'typed-letter';
+			letter.textContent = character;
+			return letter;
+		});
+		const cursor = document.createElement('span');
+		cursor.className = 'typing-cursor';
+		cursor.setAttribute('aria-hidden', 'true');
+		typingLine.replaceChildren(cursor, ...letters);
+
+		let typedLetterCount = 0;
+
+		function typeNextLetter() {
+			const letter = letters[typedLetterCount];
+			letter.classList.add('typed-letter-shown');
+			letter.after(cursor);
+			typedLetterCount += 1;
+			if (typedLetterCount < letters.length) {
+				window.setTimeout(typeNextLetter, delayBetweenLettersInMilliseconds);
+			} else {
+				cursor.classList.add('typing-cursor-blinking');
+			}
+		}
+
+		window.setTimeout(typeNextLetter, typingStartDelayInMilliseconds);
+	}
+
+	const typingLine = document.querySelector<HTMLElement>('[data-typing-line]');
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	if (typingLine && !prefersReducedMotion) startTyping(typingLine);
+</script>
+
 <style>
 	.hero {
 		display: grid;
@@ -68,6 +106,34 @@ const heroHighlights: HeroHighlight[] = [
 		font-weight: 700;
 		line-height: 1.1;
 		letter-spacing: -0.002em;
+	}
+
+	.hero-title :global(.typed-letter) {
+		opacity: 0;
+	}
+
+	.hero-title :global(.typed-letter-shown) {
+		opacity: 1;
+	}
+
+	.hero-title :global(.typing-cursor) {
+		display: inline-block;
+		width: 3px;
+		height: 0.9em;
+		margin-inline: 2px -5px;
+		border-radius: 1px;
+		background-color: var(--color-text);
+		vertical-align: -0.1em;
+	}
+
+	.hero-title :global(.typing-cursor-blinking) {
+		animation: cursor-blink 1.1s step-end infinite;
+	}
+
+	@keyframes cursor-blink {
+		50% {
+			opacity: 0;
+		}
 	}
 
 	.hero-highlights {
