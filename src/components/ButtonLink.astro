@@ -2,10 +2,10 @@
 interface Props {
 	href: string;
 	size?: 'small' | 'regular';
-	variant?: 'accent' | 'ivory' | 'outline';
+	variant?: 'accent' | 'outline' | 'light';
 }
 
-const { href, size = 'regular', variant = 'ivory' } = Astro.props;
+const { href, size = 'regular', variant = 'accent' } = Astro.props;
 ---
 
 <a class:list={['button-link', `button-link-${size}`, `button-link-${variant}`]} href={href}>

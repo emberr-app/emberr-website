@@ -12,10 +12,6 @@
   --color-accent: #0d0d0d;
   --color-accent-hover: #1e1e1e;
   --color-on-accent: #efefef;
-  --color-ivory-button: #efefef;
-  --color-ivory-button-hover: #d8d8d8;
-  --color-on-ivory-button: #0d0d0d;
-  --color-ivory-button-border: #c7c7c7;
   --color-inverse: #0d0d0d;
   --color-on-inverse: #efefef;
   --color-on-inverse-muted: #c7c7c7;
@@ -179,9 +175,19 @@ img {
 }
 
 .button-link-small {
-  height: 40px;
-  padding-inline: 18px;
-  font-size: 0.9375rem;
+  height: 38px;
+  padding-inline: 16px;
+  font-size: 0.875rem;
+}
+
+.button-link-light {
+  border-radius: 8px;
+  background-color: var(--color-card);
+  color: var(--color-inverse);
+}
+
+.button-link-light:hover {
+  background-color: var(--color-oat);
 }
 
 .button-link-accent {
@@ -192,17 +198,6 @@ img {
 
 .button-link-accent:hover {
   background-color: var(--color-accent-hover);
-}
-
-.button-link-ivory {
-  border-color: var(--color-ivory-button-border);
-  border-radius: 0 0 8px 8px;
-  background-color: var(--color-ivory-button);
-  color: var(--color-on-ivory-button);
-}
-
-.button-link-ivory:hover {
-  background-color: var(--color-ivory-button-hover);
 }
 
 .button-link-outline {
