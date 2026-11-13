@@ -1,6 +1,10 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import styles from './DownloadCards.module.css';
-import { iconMarkup, type HighlightColorName, type IconName } from './icons';
+import type { IconFunction } from 'reicon/createIcon';
+import Mobile from 'reicon/icons/Mobile';
+import Monitor from 'reicon/icons/Monitor';
+import TerminalSquare from 'reicon/icons/TerminalSquare';
+import type { HighlightColorName } from './icons';
 
 type Platform = 'android' | 'linux' | 'windows';
 
@@ -16,18 +20,10 @@ function detectVisitorPlatform(): Platform | null {
 	return null;
 }
 
-function PlatformIcon({ icon, color }: { icon: IconName; color: HighlightColorName }) {
+function PlatformIcon({ icon, color }: { icon: IconFunction; color: HighlightColorName }) {
 	return (
 		<span className={`icon-tile icon-tile-small icon-tile-${color}`} aria-hidden="true">
-			<svg
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				strokeWidth="1.75"
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				dangerouslySetInnerHTML={{ __html: iconMarkup[icon] }}
-			/>
+			<svg viewBox="0 0 24 24" fill="none" dangerouslySetInnerHTML={{ __html: icon.iconData.O ?? '' }} />
 		</span>
 	);
 }
@@ -99,10 +95,13 @@ function WindowsDownload() {
 	);
 }
 
-const platformCards: Record<Platform, { name: string; icon: IconName; color: HighlightColorName; content: ReactNode }> = {
-	android: { name: 'Android', icon: 'phone', color: 'green', content: <AndroidDownload /> },
-	linux: { name: 'Linux', icon: 'terminal', color: 'orange', content: <LinuxDownload /> },
-	windows: { name: 'Windows', icon: 'monitor', color: 'blue', content: <WindowsDownload /> }
+const platformCards: Record<
+	Platform,
+	{ name: string; icon: IconFunction; color: HighlightColorName; content: ReactNode }
+> = {
+	android: { name: 'Android', icon: Mobile, color: 'green', content: <AndroidDownload /> },
+	linux: { name: 'Linux', icon: TerminalSquare, color: 'orange', content: <LinuxDownload /> },
+	windows: { name: 'Windows', icon: Monitor, color: 'blue', content: <WindowsDownload /> }
 };
 
 export default function DownloadCards() {
