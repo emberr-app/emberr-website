@@ -10,6 +10,8 @@ type Platform = 'android' | 'linux' | 'windows';
 
 const defaultPlatformOrder: Platform[] = ['android', 'linux', 'windows'];
 const latestReleaseDownloadUrl = 'https://github.com/emberr-app/Emberr/releases/latest/download';
+const obtainiumAddEmberrUrl =
+	'https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/emberr-app/Emberr';
 const cardButtonClass = `button-link button-link-regular button-link-outline ${styles.cardButton}`;
 
 function detectVisitorPlatform(): Platform | null {
@@ -31,27 +33,31 @@ function PlatformIcon({ icon, color }: { icon: IconFunction; color: HighlightCol
 function AndroidDownload() {
 	return (
 		<>
-			<a className={cardButtonClass} href={`${latestReleaseDownloadUrl}/Emberr-android.apk`}>
-				Download APK
-			</a>
-			<p className={styles.note}>Android may ask you to allow installing apps from your browser.</p>
+			<div className={`${styles.option} ${styles.firstOption}`}>
+				<h4 className={styles.optionTitle}>Obtainium</h4>
+				<p className={styles.note}>
+					Get updates automatically. The button opens Obtainium with Emberr already added.
+				</p>
+				<a className={cardButtonClass} href={obtainiumAddEmberrUrl}>
+					Add to Obtainium
+				</a>
+			</div>
 			<div className={styles.option}>
 				<h4 className={styles.optionTitle}>Google Play (closed testing)</h4>
 				<p className={styles.note}>
-					Help Emberr reach Google Play. Join the{' '}
-					<a href="https://groups.google.com/g/emberr-testers">Emberr testers group</a>, then install
-					Emberr: Private Workspace from Google Play using the link in the group.
+					Help Emberr reach Google Play. Join the testers group, then install Emberr: Private Workspace from
+					Google Play using the link in the group.
 				</p>
+				<a className={cardButtonClass} href="https://groups.google.com/g/emberr-testers">
+					Join the testers group
+				</a>
 			</div>
 			<div className={styles.option}>
-				<h4 className={styles.optionTitle}>Obtainium</h4>
-				<p className={styles.note}>
-					Get updates automatically.{' '}
-					<a href="https://apps.obtainium.imranr.dev/redirect?r=obtainium://add/https://github.com/emberr-app/Emberr">
-						Add Emberr to Obtainium
-					</a>
-					, or paste the GitHub link into Add App.
-				</p>
+				<h4 className={styles.optionTitle}>APK from GitHub</h4>
+				<p className={styles.note}>Android may ask you to allow installing apps from your browser.</p>
+				<a className={cardButtonClass} href={`${latestReleaseDownloadUrl}/Emberr-android.apk`}>
+					Download APK
+				</a>
 			</div>
 		</>
 	);
