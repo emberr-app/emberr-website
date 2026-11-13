@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import emberrGhost from '../assets/emberr-ghost.png';
 import ButtonLink from './ButtonLink.astro';
+import { outlineIconMarkup } from './icons';
 ---
 
 <header class="site-header">
@@ -16,10 +17,45 @@ import ButtonLink from './ButtonLink.astro';
 				<a class="nav-link" href="/#privacy">Privacy</a>
 				<a class="nav-link" href="https://github.com/emberr-app/Emberr">GitHub</a>
 			</nav>
+			<button class="theme-toggle" type="button" aria-label="Dark mode" aria-pressed="false" data-theme-toggle>
+				<svg class="theme-toggle-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={outlineIconMarkup('moon')} />
+				<svg class="theme-toggle-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true" set:html={outlineIconMarkup('sun')} />
+			</button>
 			<ButtonLink href="/#download" size="small">Download</ButtonLink>
 		</div>
 	</div>
 </header>
+
+<script>
+	type Theme = 'light' | 'dark';
+
+	const themeStorageKey = 'emberr-theme';
+
+	function currentTheme(): Theme {
+		return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+	}
+
+	function showThemeOnToggle(themeToggle: HTMLButtonElement) {
+		themeToggle.setAttribute('aria-pressed', String(currentTheme() === 'dark'));
+	}
+
+	function applyTheme(theme: Theme) {
+		document.documentElement.dataset.theme = theme;
+		document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#080808' : '#ffffff');
+		try {
+			localStorage.setItem(themeStorageKey, theme);
+		} catch {}
+	}
+
+	const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+	if (themeToggle) {
+		showThemeOnToggle(themeToggle);
+		themeToggle.addEventListener('click', () => {
+			applyTheme(currentTheme() === 'dark' ? 'light' : 'dark');
+			showThemeOnToggle(themeToggle);
+		});
+	}
+</script>
 
 <style>
 	.site-header {
@@ -27,7 +63,7 @@ import ButtonLink from './ButtonLink.astro';
 		top: 0;
 		z-index: 50;
 		border-bottom: 1px solid var(--color-border);
-		background-color: rgba(255, 255, 255, 0.72);
+		background-color: var(--color-header-background);
 		-webkit-backdrop-filter: blur(20px) saturate(1.6);
 		backdrop-filter: blur(20px) saturate(1.6);
 	}
@@ -71,10 +107,46 @@ import ButtonLink from './ButtonLink.astro';
 		}
 	}
 
+	:global(:root[data-theme='dark']) .brand :global(img) {
+		filter: none;
+	}
+
 	@media (prefers-reduced-motion: reduce) {
 		.brand :global(img) {
 			animation: none;
 		}
+	}
+
+	.theme-toggle {
+		display: inline-grid;
+		place-items: center;
+		width: 38px;
+		height: 38px;
+		padding: 0;
+		border: none;
+		border-radius: 8px;
+		background-color: transparent;
+		color: var(--color-text);
+		cursor: pointer;
+		transition: background-color 200ms ease;
+	}
+
+	.theme-toggle:hover {
+		background-color: var(--color-card);
+	}
+
+	.theme-toggle svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	.theme-toggle-sun,
+	:global(:root[data-theme='dark']) .theme-toggle-moon {
+		display: none;
+	}
+
+	:global(:root[data-theme='dark']) .theme-toggle-sun {
+		display: block;
 	}
 
 	.brand-name {

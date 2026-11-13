@@ -16,6 +16,7 @@ import ListArrowDown from 'reicon/icons/ListArrowDown';
 import MagicStar from 'reicon/icons/MagicStar';
 import Microphone from 'reicon/icons/Microphone';
 import Mobile from 'reicon/icons/Mobile';
+import Moon from 'reicon/icons/Moon';
 import Notes from 'reicon/icons/Notes';
 import Palette from 'reicon/icons/Palette';
 import Refresh from 'reicon/icons/Refresh';
@@ -23,6 +24,7 @@ import RowVertical from 'reicon/icons/RowVertical';
 import SearchZoomIn from 'reicon/icons/SearchZoomIn';
 import Shapes from 'reicon/icons/Shapes';
 import ShieldCheck from 'reicon/icons/ShieldCheck';
+import Sun from 'reicon/icons/Sun';
 import Text from 'reicon/icons/Text';
 import Users from 'reicon/icons/Users';
 import Widget from 'reicon/icons/Widget';
@@ -56,7 +58,9 @@ const reiconIcons = {
 	scale: SearchZoomIn,
 	import: Import,
 	bell: Bell,
-	notes: Notes
+	notes: Notes,
+	sun: Sun,
+	moon: Moon
 } satisfies Record<string, IconFunction>;
 
 export type IconName = keyof typeof reiconIcons;

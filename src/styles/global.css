@@ -17,6 +17,11 @@
   --color-on-inverse-muted: #c7c7c7;
   --color-inverse-border: #363636;
   --color-selection: rgba(13, 13, 13, 0.14);
+  --color-header-background: rgba(255, 255, 255, 0.72);
+  --color-light-button-background: #efefef;
+  --color-light-button-hover: #d8d8d8;
+  --color-light-button-text: #0d0d0d;
+  --paper-texture-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
   --paper-texture-opacity: 0.08;
   --font-serif: var(--font-lora);
   --font-sans: var(--font-inter);
@@ -24,6 +29,26 @@
   --page-max-width: 1280px;
   --page-gutter: 16px;
   --header-height: 64px;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --color-canvas: #080808;
+  --color-card: #1e1e1e;
+  --color-feature: #1e1e1e;
+  --color-oat: #363636;
+  --color-text: #efefef;
+  --color-text-secondary: #c7c7c7;
+  --color-border: #474747;
+  --color-accent: #efefef;
+  --color-accent-hover: #d8d8d8;
+  --color-on-accent: #0d0d0d;
+  --color-inverse: #1e1e1e;
+  --color-inverse-border: #363636;
+  --color-selection: rgba(239, 239, 239, 0.2);
+  --color-header-background: rgba(8, 8, 8, 0.72);
+  --paper-texture-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+  --paper-texture-opacity: 0.02;
 }
 
 @media (min-width: 640px) {
@@ -76,7 +101,7 @@ body::after {
   inset: 0;
   z-index: 100;
   pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23grain)'/%3E%3C/svg%3E");
+  background-image: var(--paper-texture-image);
   opacity: var(--paper-texture-opacity);
 }
 
@@ -182,12 +207,12 @@ img {
 
 .button-link-light {
   border-radius: 8px;
-  background-color: var(--color-card);
-  color: var(--color-inverse);
+  background-color: var(--color-light-button-background);
+  color: var(--color-light-button-text);
 }
 
 .button-link-light:hover {
-  background-color: var(--color-oat);
+  background-color: var(--color-light-button-hover);
 }
 
 .button-link-accent {
