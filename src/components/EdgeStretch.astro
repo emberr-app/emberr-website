@@ -1,0 +1,234 @@
+---
+type StretchEdge = 'top' | 'bottom';
+
+interface Stripe {
+	colorClass: string;
+	path: string;
+}
+
+const stretchEdges: StretchEdge[] = ['top', 'bottom'];
+
+const stripes: Stripe[] = [
+	{ colorClass: 'stripe-mint', path: 'M0 0H1440V200H0Z' },
+	{ colorClass: 'stripe-blue', path: 'M0 44C300 30 620 56 940 40C1140 30 1320 46 1440 40V200H0Z' },
+	{ colorClass: 'stripe-yellow', path: 'M0 84C260 92 560 72 880 86C1120 96 1300 78 1440 84V200H0Z' },
+	{ colorClass: 'stripe-pink', path: 'M0 124C340 116 640 134 980 122C1180 114 1340 128 1440 122V200H0Z' },
+	{ colorClass: 'stripe-orange', path: 'M0 162C280 170 600 152 900 166C1140 176 1320 158 1440 164V200H0Z' }
+];
+---
+
+{
+	stretchEdges.map((edge) => (
+		<div class:list={['edge-stretch', `edge-stretch-${edge}`]} data-edge-stretch={edge} aria-hidden="true">
+			<svg class="stretch-stripes" viewBox="0 0 1440 200" preserveAspectRatio="none">
+				{stripes.map((stripe) => (
+					<path class={stripe.colorClass} d={stripe.path} />
+				))}
+			</svg>
+		</div>
+	))
+}
+
+<script>
+	const maximumStretch = 220;
+	const pullResistance = 0.6;
+	const releaseDelayInMilliseconds = 220;
+	const followStiffness = 0.12;
+	const followDamping = 0.7;
+	const releaseStiffness = 0.05;
+	const releaseDamping = 0.86;
+	const pixelsPerWheelLine = 16;
+
+	function startEdgeStretch(topLayer: HTMLElement, bottomLayer: HTMLElement) {
+		const partsMovedByBottomPull = Array.from(document.querySelectorAll<HTMLElement>('main, footer'));
+		const partsMovedByTopPull = Array.from(document.querySelectorAll<HTMLElement>('header, main, footer'));
+		const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+		let rawPull = 0;
+		let targetStretch = 0;
+		let stretch = 0;
+		let velocity = 0;
+		let isPulling = false;
+		let releaseTimer = 0;
+		let springFrameId = 0;
+		let touchStartY: number | null = null;
+		let touchStartedAtTop = false;
+		let touchStartedAtBottom = false;
+		let pulledEdge: 'top' | 'bottom' = 'bottom';
+
+		function isAtTop(): boolean {
+			return window.scrollY <= 0;
+		}
+
+		function isAtBottom(): boolean {
+			return window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+		}
+
+		function stretchFromPull(pull: number): number {
+			const pullDistance = Math.abs(pull);
+			return Math.sign(pull) * maximumStretch * (1 - 1 / (1 + (pullDistance * pullResistance) / maximumStretch));
+		}
+
+		function applyStretch() {
+			const isMoving = Math.abs(stretch) > 0.5;
+			const movingParts = pulledEdge === 'top' ? partsMovedByTopPull : partsMovedByBottomPull;
+			for (const part of partsMovedByTopPull) {
+				const partMoves = isMoving && movingParts.includes(part);
+				part.style.transform = partMoves ? `translate3d(0, ${-stretch}px, 0)` : '';
+				part.style.willChange = partMoves ? 'transform' : '';
+			}
+			bottomLayer.style.height = pulledEdge === 'bottom' ? `${Math.max(0, stretch)}px` : '0px';
+			topLayer.style.height = pulledEdge === 'top' ? `${Math.max(0, -stretch)}px` : '0px';
+		}
+
+		function springStep() {
+			const stiffness = isPulling ? followStiffness : releaseStiffness;
+			const damping = isPulling ? followDamping : releaseDamping;
+			velocity = (velocity + (targetStretch - stretch) * stiffness) * damping;
+			stretch += velocity;
+
+			const settled = Math.abs(targetStretch - stretch) < 0.2 && Math.abs(velocity) < 0.2;
+			if (settled) {
+				stretch = targetStretch;
+				velocity = 0;
+				applyStretch();
+				springFrameId = 0;
+				return;
+			}
+
+			applyStretch();
+			springFrameId = requestAnimationFrame(springStep);
+		}
+
+		function keepSpringRunning() {
+			if (springFrameId === 0) springFrameId = requestAnimationFrame(springStep);
+		}
+
+		function moveTowards(newTargetStretch: number) {
+			targetStretch = newTargetStretch;
+			if (reducedMotion.matches) {
+				stretch = targetStretch;
+				velocity = 0;
+				applyStretch();
+				return;
+			}
+			keepSpringRunning();
+		}
+
+		function release() {
+			isPulling = false;
+			rawPull = 0;
+			moveTowards(0);
+		}
+
+		function pullBy(newRawPull: number) {
+			isPulling = true;
+			if (newRawPull !== 0) pulledEdge = newRawPull < 0 ? 'top' : 'bottom';
+			rawPull = newRawPull;
+			moveTowards(stretchFromPull(rawPull));
+		}
+
+		window.addEventListener(
+			'wheel',
+			(event) => {
+				const wheelPixels = event.deltaMode === 1 ? event.deltaY * pixelsPerWheelLine : event.deltaY;
+				const isPullingBottom = rawPull > 0 || (rawPull === 0 && wheelPixels > 0 && isAtBottom());
+				const isPullingTop = rawPull < 0 || (rawPull === 0 && wheelPixels < 0 && isAtTop());
+				if (isPullingBottom) {
+					pullBy(Math.max(0, rawPull + wheelPixels));
+				} else if (isPullingTop) {
+					pullBy(Math.min(0, rawPull + wheelPixels));
+				} else {
+					return;
+				}
+				window.clearTimeout(releaseTimer);
+				releaseTimer = window.setTimeout(release, releaseDelayInMilliseconds);
+			},
+			{ passive: true }
+		);
+
+		window.addEventListener(
+			'touchstart',
+			(event) => {
+				touchStartedAtTop = isAtTop();
+				touchStartedAtBottom = isAtBottom();
+				touchStartY = touchStartedAtTop || touchStartedAtBottom ? event.touches[0].clientY : null;
+			},
+			{ passive: true }
+		);
+
+		window.addEventListener(
+			'touchmove',
+			(event) => {
+				if (touchStartY === null) return;
+				const pulledUp = touchStartY - event.touches[0].clientY;
+				const isPullingBottom = pulledUp > 0 && touchStartedAtBottom;
+				const isPullingTop = pulledUp < 0 && touchStartedAtTop;
+				if (!isPullingBottom && !isPullingTop) return;
+				event.preventDefault();
+				pullBy(pulledUp);
+			},
+			{ passive: false }
+		);
+
+		window.addEventListener('touchend', () => {
+			if (touchStartY !== null && isPulling) release();
+			touchStartY = null;
+		});
+	}
+
+	const topLayer = document.querySelector<HTMLElement>('[data-edge-stretch="top"]');
+	const bottomLayer = document.querySelector<HTMLElement>('[data-edge-stretch="bottom"]');
+	if (topLayer && bottomLayer) startEdgeStretch(topLayer, bottomLayer);
+</script>
+
+<style>
+	.edge-stretch {
+		position: fixed;
+		right: 0;
+		left: 0;
+		z-index: 0;
+		height: 0;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.edge-stretch-top {
+		top: 0;
+	}
+
+	.edge-stretch-bottom {
+		bottom: 0;
+	}
+
+	.stretch-stripes {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	.edge-stretch-top .stretch-stripes {
+		transform: scaleY(-1);
+	}
+
+	.stripe-mint {
+		fill: #9fd98f;
+	}
+
+	.stripe-blue {
+		fill: rgb(86, 112, 236);
+	}
+
+	.stripe-yellow {
+		fill: #f6d872;
+	}
+
+	.stripe-pink {
+		fill: #ffc9e6;
+	}
+
+	.stripe-orange {
+		fill: rgb(232, 110, 72);
+	}
+</style>
